@@ -30,5 +30,12 @@ public class SoundController extends Object {
 	{
 		backgroundPlayer.stop();
 	}
+	
+	public static void playSoundEffect(String path)
+	{
+		Media sound = new Media(new File(path).toURI().toString());
+		MediaPlayer player = new MediaPlayer(sound);
+		player.play();
+	}
 	private MediaPlayer backgroundPlayer;
 }
