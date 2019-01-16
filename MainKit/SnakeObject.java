@@ -51,9 +51,13 @@ public class SnakeObject extends ViewObject {
 	
 	public void setPosition(PointD pos)
 	{
-		double xPos = pos.X(), yPos = pos.Y();
-		for (int i = lenght; i >= 0; i--)
-			bodyCoordinates.add(new PointD(xPos + i*BlockSize(), yPos));
+		MainView p = (MainView) P;
+		double xPos = pos.X(), yPos = pos.Y(), dx = BlockSize()/p.pollRate();
+		for (double i = BlockSize(); i >= 0; i -= dx)
+		{
+			bodyCoordinates.add(new PointD(xPos, yPos));
+			xPos -= dx;
+		}
 	}
 	
 	public PointD Position()
@@ -147,22 +151,12 @@ public class SnakeObject extends ViewObject {
 	
 	public void draw()
 	{
-		PointD pos = bodyCoordinates.get(bodyCoordinates.size() -1);
-		painter.setFill(Color.BLUE);
-		painter.fillRoundRect(pos.X(), pos.Y(), Width(), Width(),45, 45);
-		painter.setFill(Color.BLACK);
-		if(CurrentDirection() == direction.left)
-			painter.fillRect(pos.X() + Width()/2, pos.Y(), Width()/2, Width());
-		else if(CurrentDirection() == direction.right)
-			painter.fillRect(pos.X(), pos.Y(), Width()/2, Width());
-		if(CurrentDirection() == direction.up)
-			painter.fillRect(pos.X(), pos.Y() + Width()/2, Width(), Width()/2);
-		else if(CurrentDirection() == direction.down)
-			painter.fillRect(pos.X(), pos.Y(), Width(), Width()/2);
+		MainView p = (MainView) P;
+		double w = BlockSize()/p.pollRate();
 		
-		for (int i = bodyCoordinates.size() - 2; i >= 0; i--) {
-			pos = bodyCoordinates.get(i);
-			painter.fillRect(pos.X(), pos.Y(), Width(), Width());
+		for (int i = bodyCoordinates.size() - 1; i >= 0; i--) {
+			PointD pos = bodyCoordinates.get(i);
+			painter.fillRoundRect(pos.X(), pos.Y(),Width(),Width(), 45,45);
 		}
 	}
 	

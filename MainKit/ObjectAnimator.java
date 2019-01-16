@@ -20,10 +20,8 @@ public class ObjectAnimator extends Worker {
 		while(!stopThread && !stopAllThreads)
 		{
 			
-			double dx = target.BlockSize(),
-					dy = target.BlockSize();
-			
-			Parent.moveObject(dx, dy);
+			double dt = target.BlockSize()/PollRate();
+			Parent.moveObject(dt, dt);
 			
 			try {
 				sleep(pollResolution);

@@ -3,6 +3,7 @@ package MainKit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
 
 import BaseKit.Object;
 import BaseKit.View;
@@ -20,6 +21,7 @@ public class GameController extends Object {
 		semiInteractiveObjects = new ArrayList<>();
 		initializeSnakePosition(level.columnCount()/2, level.rowCount()/2);
 		generateFoodObject();
+		blockRemainer = level.BlockSize();
 		
 	}
 	
@@ -54,7 +56,7 @@ public class GameController extends Object {
 		else if(key == KeyCode.ENTER && !snakeAnimator.isWorking())
 		{
 			snakeAnimator = new ObjectAnimator(this);
-			snakeAnimator.setPollRate(5);
+			snakeAnimator.setPollRate(100);
 			snakeAnimator.setTarget(snake);
 			snakeAnimator.start();
 		}
@@ -67,14 +69,19 @@ public class GameController extends Object {
 	public void moveObject(double dx,double dy)
 	{
 		Platform.runLater(new Runnable() {
-			
+
 			@Override
 			public void run() {
+				blockRemainer -= dx;
 				PointD nPos = snake.Position().copy();
-				if(!isOpposite(snake.NextDirection(), snake.CurrentDirection()) || snake.Lenght() == 0)
+				if((!isOpposite(snake.NextDirection(),snake.CurrentDirection()) || snake.Lenght() == 0)
+						&& blockRemainer == 0)
+				{					
 					snake.setCurrentDirection(snake.NextDirection());
-				
+					blockRemainer = level.BlockSize();
+				}
 				updateCoordinates(nPos, snake.CurrentDirection(),dx,dy);
+				
 				CheckAndCorrelateBoundaries(nPos, snake);
 				
 				// Check for collision
@@ -206,4 +213,5 @@ public class GameController extends Object {
 	private MainView Parent;
 	private LevelObject level;
 	ObjectAnimator snakeAnimator;
+	double blockRemainer;
 }

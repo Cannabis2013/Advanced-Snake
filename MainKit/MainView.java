@@ -63,6 +63,11 @@ public class MainView extends View{
 		pWorker.start();
 	}
 	
+	public double pollRate()
+	{
+		return pWorker.PollRate();
+	}
+	
 	private GameController gController;
 	private LevelController lController;
 	private SoundController sController;
