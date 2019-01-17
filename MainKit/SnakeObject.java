@@ -135,10 +135,10 @@ public class SnakeObject extends ViewObject {
 	
 	public boolean containsCoordinate(PointD pos, LevelObject level)
 	{	
-		PointD tempPos = level.relative(pos.copy());
+		PointD tempPos = pos.copy();
 		for (int i = bodyCoordinates.size() - 1;i >= 0;i--) {
-			PointD pointD = level.relative(bodyCoordinates.get(i));
-			if(tempPos.Equals(pointD))
+			PointD point = level.relative(bodyCoordinates.get(i));
+			if(tempPos.Equals(point))
 				return true;
 		}
 		return false;

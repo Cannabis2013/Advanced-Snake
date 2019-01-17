@@ -65,8 +65,8 @@ public class PointD extends Object{
 	}
 	
 	public static double round(double value, int places) {
-	    if(value <= 0 || Double.isNaN(value))
-	    	return value;
+	    if(value <= 0)
+	    	return 0;
 		if (places < 0) throw new IllegalArgumentException();
 
 	    BigDecimal bd = new BigDecimal(value);

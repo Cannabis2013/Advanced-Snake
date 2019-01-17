@@ -80,8 +80,7 @@ public class LevelObject extends View {
 	
 	public int relativeX(double x)
 	{
-		double g = (x-(xPos+borderWidth))/BlockSize();
-		return (int) PointD.round(g, 0);
+		return (int) PointD.round((x-(xPos+borderWidth))/BlockSize(), 0);
 	}
 	
 	public int relativeY(double y)

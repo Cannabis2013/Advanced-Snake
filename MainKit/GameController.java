@@ -88,7 +88,7 @@ public class GameController extends Object {
 				CheckAndCorrelateBoundaries(nPos, snake);
 				
 				// Check for collision
-				if(snake.containsCoordinate(nPos,level) && !headToHeadCollusion(nPos))
+				if(snake.containsCoordinate(positionNextBlock(nPos, snake.CurrentDirection()),level) && !headToHeadCollusion(nPos))
 					snake.Kill();
 				if(snake.isDead())
 				{
@@ -109,13 +109,33 @@ public class GameController extends Object {
 		});
 	}
 	
+	private PointD positionNextBlock(PointD pos, direction dir)
+	{
+		int c = level.relativeX(pos.X()), r = level.relativeY(pos.Y());
+		if(dir == direction.left)
+			return new PointD(c - 1, r);
+		else if(dir == direction.right)
+			return new PointD(c + 1, r);
+		else if(dir == direction.up)
+			return new PointD(c, r + 2);
+		else if(dir == direction.down)
+			return new PointD(c,r - 2);
+		else
+			return null;
+	}
 	private boolean headToHeadCollusion(PointD pos)
 	{
-		PointD posRelative = level.relative(pos), cPosRelative = level.relative(snake.position());
+		PointD posRelative = level.relative(pos), cPosRelative = level.relative(snake.Position());
 		if(posRelative.equals(cPosRelative))
+		{
+			System.out.println("True");
 			return true;
+		}
 		else
+		{
+			System.out.println("false");
 			return false;
+		}
 	}
 	
 	/*
