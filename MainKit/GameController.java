@@ -109,6 +109,7 @@ public class GameController extends Object {
 				{
 					snake.moveToCoordinates(nPos, food.Width());
 					snake.eat();
+					snake.incrementSpeed(1);
 					LevelController lController = (LevelController) Parent.Child("Levelcontroller");
 					lController.addPoints(food.getPoint());
 					generateFoodObject();

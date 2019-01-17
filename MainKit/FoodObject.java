@@ -45,8 +45,4 @@ public class FoodObject extends ViewObject {
 	private int growAmount = 1;
 	private PointD Pos;
 	private int point;
-	@Override
-	public double BlockSize() {
-		return Width();
-	}
 }

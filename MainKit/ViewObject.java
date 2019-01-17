@@ -40,13 +40,11 @@ public abstract class ViewObject extends View {
 		width = w;
 	}
 	
-	protected void playSound(Media sound)
+	public double BlockSize()
 	{
-		player = new MediaPlayer(sound);
-		player.play();
+		return Width();
 	}
 
-	public abstract double BlockSize();
 	
 	protected Color bodyColor;
 	private double width, height;

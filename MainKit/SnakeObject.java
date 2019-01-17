@@ -72,11 +72,6 @@ public class SnakeObject extends ViewObject {
 		return lenght;
 	}
 	
-	public double BlockSize()
-	{
-		return Width();
-	}
-	
 	public void setLenght(int l)
 	{
 		lenght = l;
@@ -122,9 +117,9 @@ public class SnakeObject extends ViewObject {
 		return currentDirection;
 	}
 	
-	public void setSpeed(double dT)
+	public void incrementSpeed(double dT)
 	{
-		speed = dT;
+		speed += dT;
 	}
 	
 	public double Speed()

@@ -2,6 +2,7 @@ package MainKit;
 
 import BaseKit.Object;
 import BaseKit.View;
+import PreKit.Introscreen;
 
 import java.util.List;
 
@@ -47,8 +48,10 @@ public class App extends Application {
 		if(r < 5 || r > 100 || c < 5 || c > 100)
 			throw new IllegalArgumentException();
 		
-		MainView mWiew = new MainView(r, c);
-		mWiew.show();
+		Introscreen startScreen = new Introscreen();
+		startScreen.Show();
+		//MainView mWiew = new MainView(r, c);
+		//mWiew.show();
 		}
 	public void exec(String[] args)
 	{

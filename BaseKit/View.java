@@ -33,7 +33,6 @@ public class View extends Object{
 		backgroundImage = null;
 		P = null;
 		
-		
 		paintUpdate();
 		setupInputEventHandlers();
 		setupResizeEvents();
@@ -360,6 +359,8 @@ public class View extends Object{
 			}
 		});
 	}
+	
+	
 	
 	/*
 	 * Event section.
