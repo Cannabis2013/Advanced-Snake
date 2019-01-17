@@ -65,11 +65,19 @@ public class PointD extends Object{
 	}
 	
 	public static double round(double value, int places) {
-	    if (places < 0) throw new IllegalArgumentException();
+	    if(value <= 0 || Double.isNaN(value))
+	    	return value;
+		if (places < 0) throw new IllegalArgumentException();
 
 	    BigDecimal bd = new BigDecimal(value);
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
+	}
+
+	
+	public static void printCoordinates(PointD coord)
+	{
+		System.out.println(String.format("x: %1$,.2f y: %2$,.2f", coord.X(),coord.Y()));
 	}
 	
 	private double x;

@@ -14,7 +14,7 @@ public class SnakeObject extends ViewObject {
 		currentDirection = direction.left;
 		nextDirection = currentDirection;
 		lenght = 2;
-		speed = 19;
+		speed = 15;
 		PollRate = pollRate;
 		setWidth(1);
 		grow = 0;
@@ -34,6 +34,7 @@ public class SnakeObject extends ViewObject {
 	public void Kill()
 	{
 		dead = true;
+		System.out.println("Collusion");
 		playSound(dieSound);
 	}
 	
@@ -132,11 +133,11 @@ public class SnakeObject extends ViewObject {
 		return speed;
 	}
 	
-	public boolean containsCoordinate(PointD pos)
-	{
-		PointD tempPos = pos.copy();
+	public boolean containsCoordinate(PointD pos, LevelObject level)
+	{	
+		PointD tempPos = level.relative(pos.copy());
 		for (int i = bodyCoordinates.size() - 1;i >= 0;i--) {
-			PointD pointD = bodyCoordinates.get(i);
+			PointD pointD = level.relative(bodyCoordinates.get(i));
 			if(tempPos.Equals(pointD))
 				return true;
 		}

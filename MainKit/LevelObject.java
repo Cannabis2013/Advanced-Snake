@@ -80,12 +80,22 @@ public class LevelObject extends View {
 	
 	public int relativeX(double x)
 	{
-		return (int) PointD.round((x-(xPos+borderWidth))/BlockSize(), 0);
+		double g = (x-(xPos+borderWidth))/BlockSize();
+		return (int) PointD.round(g, 0);
 	}
 	
 	public int relativeY(double y)
 	{
 		return (int) PointD.round((y-(yPos+borderWidth + verticalTopMargin))/BlockSize(), 0);
+	}
+	
+	public PointD relative(PointD pos)
+	{
+		double x = pos.X(), y = pos.Y(),
+				 cx = relativeX(x),
+				ry = relativeY(y);
+		
+		return new PointD(cx, ry);
 	}
 	
 	public LevelObject() {

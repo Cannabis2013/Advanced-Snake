@@ -73,7 +73,7 @@ public class GameController extends Object {
 				blockRemainer -= dx;
 				PointD nPos = snake.Position().copy();
 				if((!isOpposite(snake.NextDirection(),snake.CurrentDirection()) || snake.Lenght() == 0)
-						&& blockRemainer < 0)
+						&& blockRemainer <= 0)
 				{					
 					snake.setCurrentDirection(snake.NextDirection());
 					blockRemainer = level.BlockSize();
@@ -84,10 +84,11 @@ public class GameController extends Object {
 				else
 					updateCoordinates(nPos, snake.CurrentDirection(),dx,dy);
 				
+				
 				CheckAndCorrelateBoundaries(nPos, snake);
 				
 				// Check for collision
-				if(snake.containsCoordinate(nPos))
+				if(snake.containsCoordinate(nPos,level) && !headToHeadCollusion(nPos))
 					snake.Kill();
 				if(snake.isDead())
 				{
@@ -106,6 +107,15 @@ public class GameController extends Object {
 					snake.moveToCoordinates(nPos, 0);
 			}
 		});
+	}
+	
+	private boolean headToHeadCollusion(PointD pos)
+	{
+		PointD posRelative = level.relative(pos), cPosRelative = level.relative(snake.position());
+		if(posRelative.equals(cPosRelative))
+			return true;
+		else
+			return false;
 	}
 	
 	/*
@@ -179,7 +189,7 @@ public class GameController extends Object {
 		double x = generator.nextInt(level.columnCount()),
 				y = generator.nextInt(level.rowCount());
 		
-		while(snake.containsCoordinate(level.translate(new PointD(x, y))))
+		while(snake.containsCoordinate(level.translate(new PointD(x, y)),level))
 		{
 			x = generator.nextInt(level.columnCount());
 			y = generator.nextInt(level.rowCount());
