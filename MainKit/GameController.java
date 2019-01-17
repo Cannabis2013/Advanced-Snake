@@ -87,10 +87,16 @@ public class GameController extends Object {
 				
 				CheckAndCorrelateBoundaries(nPos, snake);
 				
-				// Check for collision
-				if(snake.containsCoordinate(positionNextBlock(nPos, snake.CurrentDirection())) && 
-						!headToHeadCollusion(nPos))
+				/*
+				 * Check for collison
+				 * First checks if the new position is part of the snakes body
+				 * Then checks if it is a 'Head meets head' scenario
+				 */
+				if(snake.containsCoordinate(nPos))
+				{
+					print("Collusion");
 					snake.Kill();
+				}	
 				if(snake.isDead())
 				{
 					snakeAnimator.Stop();
@@ -110,48 +116,7 @@ public class GameController extends Object {
 		});
 	}
 	
-	private PointD positionNextBlock(PointD pos, direction dir)
-	{
-		PointD result = null;
-		int c = level.relativeX(pos.X()), r = level.relativeY(pos.Y());
-		if(dir == direction.left)
-			result =  new PointD(c - 1, r);
-		else if(dir == direction.right)
-			result = new PointD(c + 1, r);
-		else if(dir == direction.up)
-			result = new PointD(c, r - 1);
-		else if(dir == direction.down)
-			result =new PointD(c,r + 1);
-		else
-			result = new PointD();
-		
-		if(result.X() < 0)
-			result.setX(level.rowCount() );
-		else if(result.X() > level.rowCount())
-			result.setX(0);
-		else if(result.Y() < 0)
-			result.setY(level.columnCount());
-		else if(result.Y() > level.columnCount())
-			result.setY(level.columnCount());
-		else
-			return result;
-		
-		return result;
-	}
-	private boolean headToHeadCollusion(PointD pos)
-	{
-		PointD posRelative = level.relative(pos), cPosRelative = level.relative(snake.Position());
-		if(posRelative.equals(cPosRelative))
-		{
-			System.out.println("True");
-			return true;
-		}
-		else
-		{
-			System.out.println("false");
-			return false;
-		}
-	}
+	
 	
 	/*
 	 * Draw section

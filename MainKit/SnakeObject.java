@@ -59,6 +59,7 @@ public class SnakeObject extends ViewObject {
 			bodyCoordinates.add(new PointD(xPos, yPos));
 			xPos -= dx;
 		}
+		initializeRelativeList();
 	}
 	
 	public PointD Position()
@@ -95,6 +96,7 @@ public class SnakeObject extends ViewObject {
 	{
 		grow += g;
 		bodyCoordinates.add(pos);
+		initializeRelativeList();
 		if(grow <= 0)
 			bodyCoordinates.remove(0);
 		else
@@ -134,15 +136,20 @@ public class SnakeObject extends ViewObject {
 	}
 	
 	public boolean containsCoordinate(PointD pos)
-	{	
+	{
+		print("Test");
 		LevelObject level = (LevelObject) Parent().Child("Level");
-		PointD tempPos = pos.copy();
-		for (int i = bodyCoordinates.size() - 1;i >= 0;i--) {
-			PointD point = level.relative(bodyCoordinates.get(i));
-			print("New point:" + pos.toString() + " Point in Snake: " + point.toString());
+		PointD tempPos = level.relative(pos.copy());
+		for (int i = 1;i < relativeCoordinates.size() - 2;i++) {
+			PointD point = relativeCoordinates.get(i);
+			print("New point:" + tempPos.toString() + " Point in Snake: " + point.toString());
 			if(tempPos.Equals(point))
+			{
+				print("test3");
 				return true;
+			}
 		}
+		print("test2");
 		return false;
 	}
 	
@@ -159,18 +166,22 @@ public class SnakeObject extends ViewObject {
 	private void initializeRelativeList()
 	{
 		LevelObject level = (LevelObject) Parent().Child("Level");
+		relativeCoordinates.clear();
 		PointD startPos = level.relative(Position());
 		relativeCoordinates.add(startPos);
 		int n = 0;
-		for (int i = 0; i < bodyCoordinates.size(); i++) {
+		for (int i = bodyCoordinates.size() - 1; i >= 0; i--) {
 			PointD part = level.relative(bodyCoordinates.get(i));
-			if(!relativeCoordinates.get(n).equals(part))
+			if(!relativeCoordinates.get(n).Equals(part))
 			{
 				n++;
 				relativeCoordinates.add(part);
 			}
 		}
 		
+		for (PointD pointD : relativeCoordinates) {
+			print(pointD.toString());
+		}
 	}
 	
 	private int lenght;
