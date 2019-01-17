@@ -2,7 +2,6 @@ package MainKit;
 
 import BaseKit.View;
 import BaseKit.PointD;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class FoodObject extends ViewObject {

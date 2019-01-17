@@ -1,7 +1,6 @@
 package MainKit;
 
 import BaseKit.View;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
@@ -45,8 +44,6 @@ public abstract class ViewObject extends View {
 		return Width();
 	}
 
-	
 	protected Color bodyColor;
 	private double width, height;
-	private MediaPlayer player;
 }

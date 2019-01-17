@@ -1,11 +1,9 @@
 package MainKit;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import BaseKit.PointD;
 import BaseKit.View;
-import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 
 public class SnakeObject extends ViewObject {

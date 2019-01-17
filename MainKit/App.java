@@ -1,9 +1,6 @@
 package MainKit;
 
 import BaseKit.Object;
-import BaseKit.View;
-import PreKit.Introscreen;
-
 import java.util.List;
 
 import javafx.application.Application;

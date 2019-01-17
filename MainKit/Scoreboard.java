@@ -26,8 +26,6 @@ public class Scoreboard extends View{
 		setHeight(100);
 		setX(0);
 		setY(0);
-		
-		Snake = null;
 	}
 	
 	public void addGamePoints(int points)
@@ -104,7 +102,6 @@ public class Scoreboard extends View{
 		Font txtNormal = new Font(24);
 		painter.setFont(txtNormal);
 		
-		Snake = (SnakeObject) P.Child("Snake");
 		String txt = String.format("Player scorer: %d ", gamePoint);
 		
 		y += 32;
@@ -134,7 +131,6 @@ public class Scoreboard extends View{
 	private int gamePoint = 0;
 	private double borderWidth = 1, borderRadius = 0;
 	private Color borderColor, fillColor;
-	private SnakeObject Snake;
 	private List<String> keyboardShortcuts;
 
 }
