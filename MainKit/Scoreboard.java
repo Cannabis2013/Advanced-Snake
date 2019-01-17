@@ -35,6 +35,11 @@ public class Scoreboard extends View{
 		gamePoint += points;
 	}
 	
+	public void resetGamePoints()
+	{
+		gamePoint = 0;
+	}
+	
 	public void setBorderWidth(double w)
 	{
 		borderWidth = w;

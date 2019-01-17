@@ -6,6 +6,7 @@ import java.util.List;
 import BaseKit.PointD;
 import BaseKit.View;
 import javafx.scene.media.Media;
+import javafx.scene.paint.Color;
 
 public class SnakeObject extends ViewObject {
 	public SnakeObject(View parent, int l, int pollRate) {
@@ -148,11 +149,13 @@ public class SnakeObject extends ViewObject {
 	// Draw section
 	
 	public void draw()
-	{	
+	{
+		painter.setFill(bodyColor);
 		for (int i = bodyCoordinates.size() - 1; i >= 0; i--) {
 			PointD pos = bodyCoordinates.get(i);
 			painter.fillRoundRect(pos.X(), pos.Y(),Width(),Width(), 45,45);
 		}
+		painter.setFill(Color.BLACK);
 	}
 	
 	private void initializeRelativeList()

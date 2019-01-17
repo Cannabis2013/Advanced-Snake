@@ -4,7 +4,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import BaseKit.View;
+import MainKit.MainView;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class Introscreen extends View {
 	public Introscreen() {
@@ -20,6 +23,18 @@ public class Introscreen extends View {
 		}
 		
 		super.show();
+	}
+	
+	@Override
+	protected void keyPressEvent(KeyEvent event) {
+		if(event.getCode() == KeyCode.ENTER)
+		{
+		}
+	}
+	
+	@Override
+	public void draw() {
+		
 	}
 	
 	public void Show()

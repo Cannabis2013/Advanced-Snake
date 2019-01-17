@@ -28,6 +28,12 @@ public class LevelController extends Object {
 		box.addGamePoints(points);
 	}
 	
+	public void resetScoreboard()
+	{
+		Scoreboard box = (Scoreboard) object("Scoreboard");
+		box.resetGamePoints();
+	}
+	
 	private View object(String name)
 	{
 		for (View view : levelObjects) {

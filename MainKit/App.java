@@ -47,9 +47,10 @@ public class App extends Application {
 		
 		if(r < 5 || r > 100 || c < 5 || c > 100)
 			throw new IllegalArgumentException();
-		
-		Introscreen startScreen = new Introscreen();
-		startScreen.Show();
+		MainView mView = new MainView(r, c);
+		mView.show();
+		//Introscreen startScreen = new Introscreen();
+		//startScreen.Show();
 		//MainView mWiew = new MainView(r, c);
 		//mWiew.show();
 		}

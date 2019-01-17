@@ -3,6 +3,7 @@ package MainKit;
 import BaseKit.View;
 import BaseKit.PointD;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class FoodObject extends ViewObject {
 
@@ -36,10 +37,9 @@ public class FoodObject extends ViewObject {
 	
 	public void draw()
 	{
-		GraphicsContext gC = Parent().getPainter();
-		gC.setFill(bodyColor);
-		
-		gC.fillRect(Pos.X(), Pos.Y(), BlockSize(), BlockSize());
+		painter.setFill(bodyColor);
+		painter.fillRect(Pos.X(), Pos.Y(), BlockSize(), BlockSize());
+		painter.setFill(Color.BLACK);
 	}
 	
 	private int growAmount = 1;
