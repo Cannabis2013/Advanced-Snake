@@ -15,16 +15,13 @@ public class SnakeObject extends ViewObject {
 		currentDirection = direction.left;
 		nextDirection = currentDirection;
 		lenght = 2;
-		speed = 15;
+		speed = 5;
 		PollRate = pollRate;
 		setWidth(1);
 		grow = 0;
 		
-		String path = "SoundFx\\death.wav";
-		dieSound = new Media(new File(path).toURI().toString());
-		path = "SoundFx\\attack.wav";
-
-		eatSound = new Media(new File(path).toURI().toString());
+		dieSound = "SoundFx\\death.wav";
+		eatSound = "SoundFx\\attack.wav";
 	}
 	
 	public boolean isDead()
@@ -35,12 +32,12 @@ public class SnakeObject extends ViewObject {
 	public void Kill()
 	{
 		dead = true;
-		playSound(dieSound);
+		SoundController.playSoundEffect(dieSound);
 	}
 	
 	public void eat()
 	{
-		playSound(eatSound);
+		SoundController.playSoundEffect(eatSound);
 	}
 	
 	// Position section
@@ -190,5 +187,5 @@ public class SnakeObject extends ViewObject {
 	private List<PointD> bodyCoordinates, relativeCoordinates;
 	private double speed, PollRate, grow;
 	private boolean dead = false;
-	private Media eatSound, dieSound;
+	private String eatSound, dieSound;
 }

@@ -1,7 +1,10 @@
 package BaseKit;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -52,6 +55,18 @@ public class View extends Object{
 		backgroundImage = null;
 		
 		setLayout(layout);
+		setupResizeEvents();
+		defaultLocation();
+	}
+	
+	public View(String path)
+	{
+		drawBoard = new Canvas();
+		mainScene = new Scene(new Pane());
+		painter = drawBoard.getGraphicsContext2D();
+		backgroundImage = null;
+		
+		setLayout(path);
 		setupResizeEvents();
 		defaultLocation();
 	}
@@ -244,14 +259,17 @@ public class View extends Object{
 
 	protected void setLayout(String path)
 	{
+		Parent ui = null;
 		try {
-			Parent ui = FXMLLoader.load(View.class.getResource(path));
-			
-			mainScene.setRoot(ui);
-			mainStage.setScene(mainScene);
+			@SuppressWarnings("deprecation")
+			URL url = new File(path).toURL();
+			ui = FXMLLoader.load(url);
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		mainScene.setRoot(ui);
+		mainStage.setScene(mainScene);
 
 	}
 	
