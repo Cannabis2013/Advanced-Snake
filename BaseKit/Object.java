@@ -35,6 +35,11 @@ public class Object  {
 		return true;
 	}
 	
+	public void print(String outpout)
+	{
+		System.out.println(outpout);
+	}
+	
 	private String objectName = String.format("Object(%d)", id);
 	private static int id = 1;
 	

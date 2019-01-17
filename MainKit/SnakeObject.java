@@ -11,6 +11,7 @@ public class SnakeObject extends ViewObject {
 	public SnakeObject(View parent, int l, int pollRate) {
 		super(parent);
 		bodyCoordinates = new ArrayList<PointD>();
+		relativeCoordinates = new ArrayList<PointD>();
 		currentDirection = direction.left;
 		nextDirection = currentDirection;
 		lenght = 2;
@@ -34,7 +35,6 @@ public class SnakeObject extends ViewObject {
 	public void Kill()
 	{
 		dead = true;
-		System.out.println("Collusion");
 		playSound(dieSound);
 	}
 	
@@ -133,11 +133,13 @@ public class SnakeObject extends ViewObject {
 		return speed;
 	}
 	
-	public boolean containsCoordinate(PointD pos, LevelObject level)
+	public boolean containsCoordinate(PointD pos)
 	{	
+		LevelObject level = (LevelObject) Parent().Child("Level");
 		PointD tempPos = pos.copy();
 		for (int i = bodyCoordinates.size() - 1;i >= 0;i--) {
 			PointD point = level.relative(bodyCoordinates.get(i));
+			print("New point:" + pos.toString() + " Point in Snake: " + point.toString());
 			if(tempPos.Equals(point))
 				return true;
 		}
@@ -154,10 +156,27 @@ public class SnakeObject extends ViewObject {
 		}
 	}
 	
+	private void initializeRelativeList()
+	{
+		LevelObject level = (LevelObject) Parent().Child("Level");
+		PointD startPos = level.relative(Position());
+		relativeCoordinates.add(startPos);
+		int n = 0;
+		for (int i = 0; i < bodyCoordinates.size(); i++) {
+			PointD part = level.relative(bodyCoordinates.get(i));
+			if(!relativeCoordinates.get(n).equals(part))
+			{
+				n++;
+				relativeCoordinates.add(part);
+			}
+		}
+		
+	}
+	
 	private int lenght;
 	public enum direction{up, down, left, right};
 	private direction currentDirection, nextDirection;
-	private List<PointD> bodyCoordinates;
+	private List<PointD> bodyCoordinates, relativeCoordinates;
 	private double speed, PollRate, grow;
 	private boolean dead = false;
 	private Media eatSound, dieSound;

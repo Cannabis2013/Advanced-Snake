@@ -88,7 +88,8 @@ public class GameController extends Object {
 				CheckAndCorrelateBoundaries(nPos, snake);
 				
 				// Check for collision
-				if(snake.containsCoordinate(positionNextBlock(nPos, snake.CurrentDirection()),level) && !headToHeadCollusion(nPos))
+				if(snake.containsCoordinate(positionNextBlock(nPos, snake.CurrentDirection())) && 
+						!headToHeadCollusion(nPos))
 					snake.Kill();
 				if(snake.isDead())
 				{
@@ -111,17 +112,31 @@ public class GameController extends Object {
 	
 	private PointD positionNextBlock(PointD pos, direction dir)
 	{
+		PointD result = null;
 		int c = level.relativeX(pos.X()), r = level.relativeY(pos.Y());
 		if(dir == direction.left)
-			return new PointD(c - 1, r);
+			result =  new PointD(c - 1, r);
 		else if(dir == direction.right)
-			return new PointD(c + 1, r);
+			result = new PointD(c + 1, r);
 		else if(dir == direction.up)
-			return new PointD(c, r + 2);
+			result = new PointD(c, r - 1);
 		else if(dir == direction.down)
-			return new PointD(c,r - 2);
+			result =new PointD(c,r + 1);
 		else
-			return null;
+			result = new PointD();
+		
+		if(result.X() < 0)
+			result.setX(level.rowCount() );
+		else if(result.X() > level.rowCount())
+			result.setX(0);
+		else if(result.Y() < 0)
+			result.setY(level.columnCount());
+		else if(result.Y() > level.columnCount())
+			result.setY(level.columnCount());
+		else
+			return result;
+		
+		return result;
 	}
 	private boolean headToHeadCollusion(PointD pos)
 	{
@@ -209,7 +224,7 @@ public class GameController extends Object {
 		double x = generator.nextInt(level.columnCount()),
 				y = generator.nextInt(level.rowCount());
 		
-		while(snake.containsCoordinate(level.translate(new PointD(x, y)),level))
+		while(snake.containsCoordinate(level.translate(new PointD(x, y))))
 		{
 			x = generator.nextInt(level.columnCount());
 			y = generator.nextInt(level.rowCount());

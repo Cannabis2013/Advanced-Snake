@@ -64,6 +64,10 @@ public class PointD extends Object{
 		return new PointD(x, y);
 	}
 	
+	/*
+	 * Rounding method.
+	 */
+	
 	public static double round(double value, int places) {
 	    if(value <= 0)
 	    	return 0;
@@ -73,7 +77,16 @@ public class PointD extends Object{
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
 	}
-
+	
+	public String toString()
+	{
+		return PointD.toString(this);
+	}
+	
+	public static String toString(PointD coords)
+	{
+		return String.format("x = %1$f y = %2$f", coords.X(),coords.Y());
+	}
 	
 	public static void printCoordinates(PointD coord)
 	{
