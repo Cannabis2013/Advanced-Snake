@@ -3,8 +3,6 @@ package MainKit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-
 import BaseKit.Object;
 import BaseKit.View;
 import BaseKit.PointD;
@@ -27,7 +25,7 @@ public class GameController extends Object {
 	
 	public void initializeSnakePosition(double x, double y)
 	{
-		snake = new SnakeObject(Parent,1);
+		snake = new SnakeObject(Parent,1, pollRate);
 		snake.setWidth(level.BlockSize());
 		snake.setPosition(level.translate(x, y));
 		snake.setObjectName("Snake");
@@ -45,7 +43,7 @@ public class GameController extends Object {
 		{
 			snakeAnimator.Stop();
 			Parent.RemoveChild(snake);
-			snake = new SnakeObject(Parent,1);
+			snake = new SnakeObject(Parent,1,pollRate);
 			initializeSnakePosition(level.columnCount()/2, level.rowCount()/2);
 			generateFoodObject();
 		}
@@ -56,7 +54,7 @@ public class GameController extends Object {
 		else if(key == KeyCode.ENTER && !snakeAnimator.isWorking())
 		{
 			snakeAnimator = new ObjectAnimator(this);
-			snakeAnimator.setPollRate(100);
+			snakeAnimator.setPollRate(pollRate);
 			snakeAnimator.setTarget(snake);
 			snakeAnimator.start();
 		}
@@ -75,12 +73,16 @@ public class GameController extends Object {
 				blockRemainer -= dx;
 				PointD nPos = snake.Position().copy();
 				if((!isOpposite(snake.NextDirection(),snake.CurrentDirection()) || snake.Lenght() == 0)
-						&& blockRemainer == 0)
+						&& blockRemainer < 0)
 				{					
 					snake.setCurrentDirection(snake.NextDirection());
 					blockRemainer = level.BlockSize();
+					updateCoordinates(nPos, snake.CurrentDirection(),dx,dy);
+					int c = level.relativeX(nPos.X()), r = level.relativeY(nPos.Y());
+					nPos = level.translate(c, r);
 				}
-				updateCoordinates(nPos, snake.CurrentDirection(),dx,dy);
+				else
+					updateCoordinates(nPos, snake.CurrentDirection(),dx,dy);
 				
 				CheckAndCorrelateBoundaries(nPos, snake);
 				
@@ -96,9 +98,7 @@ public class GameController extends Object {
 				FoodObject food = (FoodObject) SemiInteractiveObject("Food");
 				if(nPos.Equals(food.Position()))
 				{
-					snake.moveToCoordinates(nPos, food.GrowAmount());
-					if(snake.Lenght() % 5 == 0)
-						snakeAnimator.setPollRate(snakeAnimator.PollRate() + 1);
+					snake.moveToCoordinates(nPos, food.Width());
 					snake.eat();
 					generateFoodObject();
 				}
@@ -214,4 +214,5 @@ public class GameController extends Object {
 	private LevelObject level;
 	ObjectAnimator snakeAnimator;
 	double blockRemainer;
+	int pollRate = 100;
 }

@@ -6,17 +6,18 @@ import java.util.List;
 import BaseKit.PointD;
 import BaseKit.View;
 import javafx.scene.media.Media;
-import javafx.scene.paint.Color;
 
 public class SnakeObject extends ViewObject {
-	public SnakeObject(View parent, int l) {
+	public SnakeObject(View parent, int l, int pollRate) {
 		super(parent);
 		bodyCoordinates = new ArrayList<PointD>();
 		currentDirection = direction.left;
 		nextDirection = currentDirection;
-		lenght = l;
-		speed = -1;
+		lenght = 2;
+		speed = 19;
+		PollRate = pollRate;
 		setWidth(1);
+		grow = 0;
 		
 		String path = "SoundFx\\death.wav";
 		dieSound = new Media(new File(path).toURI().toString());
@@ -51,8 +52,7 @@ public class SnakeObject extends ViewObject {
 	
 	public void setPosition(PointD pos)
 	{
-		MainView p = (MainView) P;
-		double xPos = pos.X(), yPos = pos.Y(), dx = BlockSize()/p.pollRate();
+		double xPos = pos.X(), yPos = pos.Y(), dx = Speed()*BlockSize()/PollRate;
 		for (double i = BlockSize(); i >= 0; i -= dx)
 		{
 			bodyCoordinates.add(new PointD(xPos, yPos));
@@ -90,7 +90,7 @@ public class SnakeObject extends ViewObject {
 	 * - Speed
 	 */
 	
-	public void moveToCoordinates(PointD pos, int g)
+	public void moveToCoordinates(PointD pos, double g)
 	{
 		grow += g;
 		bodyCoordinates.add(pos);
@@ -98,8 +98,7 @@ public class SnakeObject extends ViewObject {
 			bodyCoordinates.remove(0);
 		else
 		{
-			grow--;
-			lenght++;
+			grow -= Speed()*BlockSize()/PollRate;
 		}
 	}
 	
@@ -130,10 +129,7 @@ public class SnakeObject extends ViewObject {
 	
 	public double Speed()
 	{
-		if (speed == -1)
-			return BlockSize();
-		else
-			return speed;
+		return speed;
 	}
 	
 	public boolean containsCoordinate(PointD pos)
@@ -150,21 +146,18 @@ public class SnakeObject extends ViewObject {
 	// Draw section
 	
 	public void draw()
-	{
-		MainView p = (MainView) P;
-		double w = BlockSize()/p.pollRate();
-		
+	{	
 		for (int i = bodyCoordinates.size() - 1; i >= 0; i--) {
 			PointD pos = bodyCoordinates.get(i);
 			painter.fillRoundRect(pos.X(), pos.Y(),Width(),Width(), 45,45);
 		}
 	}
 	
-	private int lenght, grow;
+	private int lenght;
 	public enum direction{up, down, left, right};
 	private direction currentDirection, nextDirection;
 	private List<PointD> bodyCoordinates;
-	private double speed;
+	private double speed, PollRate, grow;
 	private boolean dead = false;
 	private Media eatSound, dieSound;
 }

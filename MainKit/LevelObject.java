@@ -78,6 +78,20 @@ public class LevelObject extends View {
 		return new PointD(tx, ty);
 	}
 	
+	public int relativeX(double x)
+	{
+		return (int) PointD.round((x-(xPos+borderWidth))/BlockSize(), 0);
+	}
+	
+	public int relativeY(double y)
+	{
+		return (int) PointD.round((y-(yPos+borderWidth + verticalTopMargin))/BlockSize(), 0);
+	}
+	
+	public LevelObject() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	/*
 	 * Widget dimensions
 	 */

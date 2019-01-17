@@ -20,7 +20,7 @@ public class ObjectAnimator extends Worker {
 		while(!stopThread && !stopAllThreads)
 		{
 			
-			double dt = target.BlockSize()/PollRate();
+			double dt = target.Speed()*target.BlockSize()/PollRate();
 			Parent.moveObject(dt, dt);
 			
 			try {
