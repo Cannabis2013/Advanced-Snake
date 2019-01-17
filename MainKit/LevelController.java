@@ -1,5 +1,6 @@
 package MainKit;
 
+import BaseKit.Object;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,20 +8,34 @@ import BaseKit.View;
 
 public class LevelController extends Object {
 	public LevelController(MainView parent, int rows, int columns) {
-		Parent = parent;
+		super(parent);
+		setObjectName("Levelcontroller");
 		levelObjects = new ArrayList<>();
 		level = new LevelObject(parent);
 		level.setObjectName("Level");
 		setupLevel(rows, columns, 0, 0, 20, 50, 50);
 		
 		levelObjects.add(level);
-		
-		Scoreboard box = new Scoreboard(Parent);
+		Scoreboard box = new Scoreboard(parent);
 		box.setObjectName("Scoreboard");
 		setupScoreBoard();
 		levelObjects.add(box);
 	}
 
+	public void addPoints(int points)
+	{
+		Scoreboard box = (Scoreboard) object("Scoreboard");
+		box.addGamePoints(points);
+	}
+	
+	private View object(String name)
+	{
+		for (View view : levelObjects) {
+			if(view.ObjectName().equals(name))
+				return view;
+		}
+		return null;
+	}
 	
 	public void drawObjects()
 	{
@@ -50,6 +65,7 @@ public class LevelController extends Object {
 	
 	private void setupScoreBoard()
 	{
+		MainView Parent = (MainView) Parent();
 		Scoreboard box = (Scoreboard) Parent.Child("Scoreboard");
 		if(box == null)
 			return;
@@ -60,8 +76,6 @@ public class LevelController extends Object {
 		box.setBorderWidth(20);
 		box.setRoundedCorners(20);
 	}
-	
-	private MainView Parent;
 	private LevelObject level;
 	private List<View> levelObjects;
 }

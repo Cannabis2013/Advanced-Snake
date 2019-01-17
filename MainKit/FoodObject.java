@@ -11,11 +11,17 @@ public class FoodObject extends ViewObject {
 		setWidth(Width);
 		setHeight(Width);
 		Pos = new PointD(pos.X(), pos.Y());
+		point = 1;
 	}
 	
 	public PointD Position()
 	{
 		return Pos;
+	}
+	
+	public int getPoint()
+	{
+		return point;
 	}
 	
 	public int GrowAmount()
@@ -30,7 +36,7 @@ public class FoodObject extends ViewObject {
 	
 	public void draw()
 	{
-		GraphicsContext gC = P.getPainter();
+		GraphicsContext gC = Parent().getPainter();
 		gC.setFill(bodyColor);
 		
 		gC.fillRect(Pos.X(), Pos.Y(), BlockSize(), BlockSize());
@@ -38,6 +44,7 @@ public class FoodObject extends ViewObject {
 	
 	private int growAmount = 1;
 	private PointD Pos;
+	private int point;
 	@Override
 	public double BlockSize() {
 		return Width();

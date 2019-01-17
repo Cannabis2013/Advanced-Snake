@@ -13,7 +13,8 @@ import javafx.scene.paint.Color;
 
 public class GameController extends Object {
 	public GameController(MainView parent) {
-		Parent = parent;
+		super(parent);
+		Parent = (MainView) Parent();
 		snakeAnimator = new ObjectAnimator(this);
 		level = (LevelObject) Parent.Child("Level");
 		semiInteractiveObjects = new ArrayList<>();
@@ -108,6 +109,8 @@ public class GameController extends Object {
 				{
 					snake.moveToCoordinates(nPos, food.Width());
 					snake.eat();
+					LevelController lController = (LevelController) Parent.Child("Levelcontroller");
+					lController.addPoints(food.getPoint());
 					generateFoodObject();
 				}
 				else
@@ -115,8 +118,6 @@ public class GameController extends Object {
 			}
 		});
 	}
-	
-	
 	
 	/*
 	 * Draw section

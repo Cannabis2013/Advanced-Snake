@@ -30,6 +30,11 @@ public class Scoreboard extends View{
 		Snake = null;
 	}
 	
+	public void addGamePoints(int points)
+	{
+		gamePoint += points;
+	}
+	
 	public void setBorderWidth(double w)
 	{
 		borderWidth = w;
@@ -44,6 +49,7 @@ public class Scoreboard extends View{
 	{
 		return Width() - 2*borderWidth;
 	}
+	
 	
 	private double ContentHeight()
 	{
@@ -65,7 +71,7 @@ public class Scoreboard extends View{
 	 */
 	@Override
 	public void draw() {
-		GraphicsContext painter = P.getPainter();
+		GraphicsContext painter = Parent().getPainter();
 		painter.setFill(borderColor);
 		painter.fillRoundRect(X(), Y(), Width(), Height(), borderRadius, borderRadius);
 		painter.setFill(fillColor);
@@ -94,7 +100,7 @@ public class Scoreboard extends View{
 		painter.setFont(txtNormal);
 		
 		Snake = (SnakeObject) P.Child("Snake");
-		String txt = String.format("Player scorer: %d ", Snake.Lenght() - 1);
+		String txt = String.format("Player scorer: %d ", gamePoint);
 		
 		y += 32;
 		
@@ -120,7 +126,7 @@ public class Scoreboard extends View{
 		for (double i = 0, n = y; i < keyboardShortcuts.size(); i++, n += 32)
 			painter.fillText(keyboardShortcuts.get((int) i), x, n);
 	}
-	
+	private int gamePoint = 0;
 	private double borderWidth = 1, borderRadius = 0;
 	private Color borderColor, fillColor;
 	private SnakeObject Snake;

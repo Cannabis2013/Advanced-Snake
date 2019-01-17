@@ -2,8 +2,6 @@ package BaseKit;
 
 import java.awt.Dimension;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -30,7 +28,6 @@ public class View extends Object{
 		mainScene = new Scene(new Pane());
 		painter = drawBoard.getGraphicsContext2D();
 		backgroundImage = null;
-		children = new ArrayList<>();
 		P = null;
 		
 		
@@ -41,14 +38,11 @@ public class View extends Object{
 	}
 	
 	public View(View parent) {
-		
+		super(parent);
 		drawBoard = null;
 		mainScene = null;
 		painter = parent.getPainter();
 		backgroundImage = null;
-		children = new ArrayList<>();
-		P = parent;
-		P.addChild(this);
 	}
 	public View(Pane layout)
 	{
@@ -56,7 +50,6 @@ public class View extends Object{
 		mainScene = new Scene(new Pane());
 		painter = drawBoard.getGraphicsContext2D();
 		backgroundImage = null;
-		children = new ArrayList<>();
 		
 		setLayout(layout);
 		setupResizeEvents();
@@ -266,52 +259,9 @@ public class View extends Object{
 	 * Parent section
 	 */
 	
-	public boolean HasParent()
-	{
-		if(P != null)
-			return true;
-		else
-			return false;
-	}
-	
-	public void setParent(View parent)
-	{
-		P = parent;
-	}
-	
 	public View Parent()
 	{
-		return P;
-	}
-	
-	public void addChild(View child)
-	{
-		if(child != null)
-			children.add(child);
-		else
-			throw new IllegalArgumentException();
-	}
-	
-	public View ChildAt(int index)
-	{
-		if(children.size() > index && index >= 0)
-			return children.get(index);
-		else
-			return null;
-	}
-	
-	public View Child(String childName)
-	{
-		for (View child : children) {
-			if(child.ObjectName().equals(childName))
-				return child;
-		}
-		return null;
-	}
-	
-	public void RemoveChild(View child)
-	{
-		children.remove(child);
+		return (View) P;
 	}
 	
 	/*
@@ -428,10 +378,9 @@ public class View extends Object{
 	protected Canvas drawBoard;
 	protected Pane ui;
 	protected Image backgroundImage;
-	protected View P;
 	private myStage mainStage = new myStage();
 	protected GraphicsContext painter;
 	private Scene mainScene;
-	private List<View> children;
+	
 	private Color backgroundColor;
 }

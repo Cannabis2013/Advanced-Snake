@@ -257,7 +257,7 @@ public class LevelObject extends View {
 	
 	public void draw()
 	{
-		GraphicsContext gC = P.getPainter();
+		GraphicsContext gC = Parent().getPainter();
 		
 		// Draw background color
 		
