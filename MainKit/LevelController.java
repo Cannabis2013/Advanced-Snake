@@ -9,7 +9,7 @@ import BaseKit.View;
 public class LevelController extends Object {
 	public LevelController(MainView parent, int rows, int columns) {
 		super(parent);
-		setObjectName("Levelcontroller");
+		setObjectName("LevelController");
 		levelObjects = new ArrayList<>();
 		level = new LevelObject(parent);
 		level.setObjectName("Level");

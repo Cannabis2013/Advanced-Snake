@@ -13,6 +13,7 @@ public class FoodObject extends ViewObject {
 		setHeight(Width);
 		Pos = new PointD(pos.X(), pos.Y());
 		point = 1;
+		growAmount = BlockSize();
 	}
 	
 	public PointD Position()
@@ -25,7 +26,13 @@ public class FoodObject extends ViewObject {
 		return point;
 	}
 	
-	public int GrowAmount()
+	/*
+	 * Properties
+	 *  - Grow amount
+	 *  - Speed incremental amount
+	 */
+	
+	public double GrowAmount()
 	{
 		return growAmount;
 	}
@@ -42,7 +49,7 @@ public class FoodObject extends ViewObject {
 		painter.setFill(Color.BLACK);
 	}
 	
-	private int growAmount = 1;
+	private double growAmount;
 	private PointD Pos;
 	private int point;
 }

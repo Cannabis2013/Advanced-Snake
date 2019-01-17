@@ -15,14 +15,10 @@ public class SnakeObject extends ViewObject {
 		relativeCoordinates = new ArrayList<PointD>();
 		currentDirection = direction.left;
 		nextDirection = currentDirection;
-		lenght = 2;
 		speed = 5;
 		PollRate = pollRate;
 		setWidth(1);
 		grow = 0;
-		
-		dieSound = "SoundFx\\death.wav";
-		eatSound = "SoundFx\\attack.wav";
 	}
 	
 	public boolean isDead()
@@ -36,18 +32,14 @@ public class SnakeObject extends ViewObject {
 		SoundController.playSoundEffect(dieSound);
 	}
 	
-	public void eat()
+	public void eat(FoodObject obj)
 	{
+		grow += obj.GrowAmount();
 		SoundController.playSoundEffect(eatSound);
+		incrementSpeed(0.25);
 	}
 	
 	// Position section
-	
-	public void setPosition(double xPos, double yPos)
-	{
-		for (int i = lenght; i >= 0; i--)
-			bodyCoordinates.add(new PointD(xPos + i*BlockSize(), yPos));
-	}
 	
 	public void setPosition(PointD pos)
 	{
@@ -68,15 +60,6 @@ public class SnakeObject extends ViewObject {
 	/*
 	 * Set body properties like lenght and width
 	 */
-	public int Lenght()
-	{
-		return lenght;
-	}
-	
-	public void setLenght(int l)
-	{
-		lenght = l;
-	}
 	
 	/*
 	 * Movement and direction related
@@ -85,9 +68,8 @@ public class SnakeObject extends ViewObject {
 	 * - Speed
 	 */
 	
-	public void moveToCoordinates(PointD pos, double g)
+	public void moveToCoordinates(PointD pos)
 	{
-		grow += g;
 		bodyCoordinates.add(pos);
 		initializeRelativeList();
 		if(grow <= 0)
@@ -130,19 +112,15 @@ public class SnakeObject extends ViewObject {
 	
 	public boolean containsCoordinate(PointD pos)
 	{
-		print("Test");
 		LevelObject level = (LevelObject) Parent().Child("Level");
 		PointD tempPos = level.relative(pos.copy());
 		for (int i = 1;i < relativeCoordinates.size() - 2;i++) {
 			PointD point = relativeCoordinates.get(i);
-			print("New point:" + tempPos.toString() + " Point in Snake: " + point.toString());
 			if(tempPos.Equals(point))
 			{
-				print("test3");
 				return true;
 			}
 		}
-		print("test2");
 		return false;
 	}
 	
@@ -169,21 +147,16 @@ public class SnakeObject extends ViewObject {
 			PointD part = level.relative(bodyCoordinates.get(i));
 			if(!relativeCoordinates.get(n).Equals(part))
 			{
-				n++;
 				relativeCoordinates.add(part);
+				n++;
 			}
-		}
-		
-		for (PointD pointD : relativeCoordinates) {
-			print(pointD.toString());
 		}
 	}
 	
-	private int lenght;
 	public enum direction{up, down, left, right};
 	private direction currentDirection, nextDirection;
 	private List<PointD> bodyCoordinates, relativeCoordinates;
 	private double speed, PollRate, grow;
 	private boolean dead = false;
-	private String eatSound, dieSound;
+	private String eatSound = "SoundFx\\attack.wav", dieSound = "SoundFx\\death.wav";;
 }

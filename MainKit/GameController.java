@@ -16,12 +16,13 @@ public class GameController extends Object {
 		super(parent);
 		Parent = (MainView) Parent();
 		snakeAnimator = new ObjectAnimator(this);
+		lController = (LevelController) Parent.Child("LevelController");
 		level = (LevelObject) Parent.Child("Level");
 		semiInteractiveObjects = new ArrayList<>();
-		initializeSnakePosition(level.columnCount()/2, level.rowCount()/2);
-		generateFoodObject();
 		blockRemainer = level.BlockSize();
 		
+		initializeSnakePosition(level.columnCount()/2, level.rowCount()/2);
+		generateFoodObject();
 	}
 	
 	public void initializeSnakePosition(double x, double y)
@@ -42,6 +43,7 @@ public class GameController extends Object {
 	{	
 		if(key == KeyCode.R)
 		{
+			lController.resetScoreboard();
 			snakeAnimator.Stop();
 			Parent.RemoveChild(snake);
 			snake = new SnakeObject(Parent,1,pollRate);
@@ -73,7 +75,7 @@ public class GameController extends Object {
 			public void run() {
 				blockRemainer -= dx;
 				PointD nPos = snake.Position().copy();
-				if((!isOpposite(snake.NextDirection(),snake.CurrentDirection()) || snake.Lenght() == 0)
+				if((!isOpposite(snake.NextDirection(),snake.CurrentDirection()))
 						&& blockRemainer <= 0)
 				{					
 					snake.setCurrentDirection(snake.NextDirection());
@@ -85,7 +87,6 @@ public class GameController extends Object {
 				else
 					updateCoordinates(nPos, snake.CurrentDirection(),dx,dy);
 				
-				
 				CheckAndCorrelateBoundaries(nPos, snake);
 				
 				/*
@@ -93,29 +94,23 @@ public class GameController extends Object {
 				 * First checks if the new position is part of the snakes body
 				 * Then checks if it is a 'Head meets head' scenario
 				 */
-				if(snake.containsCoordinate(nPos))
-				{
-					print("Collusion");
-					snake.Kill();
-				}	
 				if(snake.isDead())
 				{
 					snakeAnimator.Stop();
 					return;
 				}
 				
+				if(snake.containsCoordinate(nPos))
+					snake.Kill();
+				
 				FoodObject food = (FoodObject) SemiInteractiveObject("Food");
 				if(nPos.Equals(food.Position()))
 				{
-					snake.moveToCoordinates(nPos, food.Width());
-					snake.eat();
-					snake.incrementSpeed(1);
-					LevelController lController = (LevelController) Parent.Child("Levelcontroller");
+					snake.eat(food);
 					lController.addPoints(food.getPoint());
 					generateFoodObject();
 				}
-				else
-					snake.moveToCoordinates(nPos, 0);
+				snake.moveToCoordinates(nPos);
 			}
 		});
 	}
@@ -197,7 +192,6 @@ public class GameController extends Object {
 			y = generator.nextInt(level.rowCount());
 		}
 		
-		
 		FoodObject obj = new FoodObject(Parent,new PointD(level.translateX(x),level.translateY(y)),level.BlockSize());
 		obj.setObjectName("Food");
 		obj.setColor(Color.RED);
@@ -221,10 +215,11 @@ public class GameController extends Object {
 	}
 	
 	private List<ViewObject> semiInteractiveObjects;
-	SnakeObject snake;
+	private SnakeObject snake;
 	private MainView Parent;
+	private LevelController lController;
 	private LevelObject level;
-	ObjectAnimator snakeAnimator;
+	private ObjectAnimator snakeAnimator;
 	double blockRemainer;
 	int pollRate = 100;
 }
