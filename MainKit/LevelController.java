@@ -82,6 +82,7 @@ public class LevelController extends Object {
 		box.setBorderWidth(20);
 		box.setRoundedCorners(20);
 	}
+	
 	private LevelObject level;
 	private List<View> levelObjects;
 }

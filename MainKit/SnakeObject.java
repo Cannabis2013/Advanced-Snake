@@ -43,7 +43,7 @@ public class SnakeObject extends ViewObject {
 	public void setPosition(PointD pos)
 	{
 		double xPos = pos.X(), yPos = pos.Y(), dx = Speed()*BlockSize()/PollRate;
-		for (double i = BlockSize(); i >= 0; i -= dx)
+		for (double i = 10*BlockSize(); i >= 0; i -= dx)
 		{
 			bodyCoordinates.add(new PointD(xPos, yPos));
 			xPos -= dx;
@@ -111,6 +111,7 @@ public class SnakeObject extends ViewObject {
 	
 	public boolean containsCoordinate(PointD pos)
 	{
+		
 		LevelObject level = (LevelObject) Parent().Child("Level");
 		PointD tempPos = level.relative(pos.copy());
 		for (int i = 1;i < relativeCoordinates.size() - 2;i++) {

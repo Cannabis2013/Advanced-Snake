@@ -4,6 +4,7 @@ import BaseKit.View;
 import BaseKit.PointD;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class LevelObject extends View {
 	
@@ -249,7 +250,6 @@ public class LevelObject extends View {
 		return verticalBottomMargin;
 	}
 	
-	
 	/*
 	 * Draw section
 	 * Re-implements View.draw()
@@ -257,25 +257,31 @@ public class LevelObject extends View {
 	
 	public void draw()
 	{
-		GraphicsContext painter = Parent().getPainter();
-		
-		// Draw background color
-		
+		paint(mode, infoText);
+	}
+	
+	private void paint(DisplayMode m, String text)
+	{
 		//Draw border
 		painter.setFill(Color.BROWN);
 		painter.fillRoundRect(translateX(0) - borderWidth, translateY(0) - borderWidth, columns*BlockSize() + borderWidth*2, gridHeight() + borderWidth*2,30,30);
 		painter.setFill(Color.BLACK);
 		painter.fillRect(translateX(0), translateY(0), columns*BlockSize(), gridHeight());
 		
-		if(mode == DisplayMode.noGitter)
-			return;
-		
-		
-		
-		for (int i = 0; i <= columns; i++)
-			painter.strokeLine(translateX(i), translateY(0), translateX(i), lastColumn()+BlockSize());
-		for (int i = 0; i <= rows; i++) {
-			painter.strokeLine(translateX(0), translateY(i), lastRow() + BlockSize(), translateY(i));
+		if(m == DisplayMode.strongGitter)
+		{
+			for (int i = 0; i <= columns; i++)
+				painter.strokeLine(translateX(i), translateY(0), translateX(i), lastColumn()+BlockSize());
+			for (int i = 0; i <= rows; i++) {
+				painter.strokeLine(translateX(0), translateY(i), lastRow() + BlockSize(), translateY(i));
+			}			
+		}
+		if(text != null)
+		{
+			double pointSize = 128;
+			painter.setFont(new Font(pointSize));
+			painter.setFill(Color.RED);
+			painter.fillText(text, translateX(0), Parent().Height()/2, Parent().Width());			
 		}
 	}
 	
@@ -285,4 +291,5 @@ public class LevelObject extends View {
 	private int rows, columns;
 	private double xPos, yPos;
 	private double borderWidth;
+	private String infoText = null;
 }

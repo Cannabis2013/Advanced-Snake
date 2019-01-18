@@ -13,8 +13,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
 public class GameController extends Object {
-	public GameController(MainView parent) {
+	public GameController(Object parent) {
 		super(parent);
+		setObjectName("GameController");
 		Parent = (MainView) Parent();
 		snakeAnimator = new ObjectAnimator(this);
 		lController = (LevelController) Parent.Child("LevelController");
@@ -74,6 +75,7 @@ public class GameController extends Object {
 
 			@Override
 			public void run() {
+				
 				blockRemainer -= dx;
 				PointD nPos = snake.position().copy();
 				if((!isOpposite(snake.NextDirection(),snake.CurrentDirection()))
@@ -95,15 +97,13 @@ public class GameController extends Object {
 				 * First checks if the new position is part of the snakes body
 				 * Then checks if it is a 'Head meets head' scenario
 				 */
-				if(snake.isDead())
-				{
-					snakeAnimator.Stop();
-					return;
-				}
 				
 				if(snake.containsCoordinate(nPos))
+				{
 					snake.Kill();
-				
+					snakeAnimator.Stop();
+					return;					
+				}
 				FoodObject food = (FoodObject) SemiInteractiveObject("Food");
 				if(nPos.Equals(food.Position()))
 				{
