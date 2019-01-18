@@ -1,5 +1,6 @@
 package MainKit;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -10,6 +11,11 @@ public class OverLayController extends Object {
 	public OverLayController(Object parent) {
 		super(parent);
 		
+		
+	}
+	
+	public void drawObjects()
+	{
 		
 	}
 	
@@ -25,5 +31,6 @@ public class OverLayController extends Object {
 		}, milliseconds);
 	}
 	
+	List<TextObject> textObjects;
 	
 }
