@@ -21,6 +21,7 @@ public class OverLayController extends Object {
 	
 	public void showText(String txt, long milliseconds)
 	{
+		
 		Timer tm = new Timer();
 		tm.schedule(new TimerTask() {
 			

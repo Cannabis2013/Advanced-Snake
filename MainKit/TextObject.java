@@ -5,8 +5,8 @@ import javafx.scene.layout.Pane;
 
 public class TextObject extends View {
 
-	public TextObject(String txt) {
-		// TODO Auto-generated constructor stub
+	public TextObject(String txt, double x ,double y, double maxWidth) {
+		
 	}
 	@Override
 	public void draw() {
