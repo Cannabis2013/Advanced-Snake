@@ -8,6 +8,7 @@ public class Worker extends Thread {
 	protected boolean stopThread = false;
 	protected int pollResolution = 10;
 	protected View Parent;
+	private Thread t;
 	
 	public Worker(View parent) {
 		Parent = parent;
@@ -25,6 +26,15 @@ public class Worker extends Thread {
 	public int PollRate()
 	{
 		return 1000/pollResolution;
+	}
+	
+	@Override
+	public synchronized void start() {
+		if(t == null)
+		{
+			t = new Thread(this);
+			t.start();
+		}
 	}
 	
 	public void Stop()

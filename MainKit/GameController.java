@@ -222,5 +222,5 @@ public class GameController extends Object {
 	private LevelObject level;
 	private ObjectAnimator snakeAnimator;
 	double blockRemainer;
-	int pollRate = 100;
+	int pollRate = 60;
 }

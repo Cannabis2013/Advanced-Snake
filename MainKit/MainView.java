@@ -1,6 +1,5 @@
 package MainKit;
 
-
 import BaseKit.View;
 import Workers.PaintWorker;
 import Workers.Worker;
@@ -27,7 +26,7 @@ public class MainView extends View{
 		
 		sController.playMusic();
 		
-		pWorker.setPollRate(100);
+		pWorker.setPollRate(60);
 	}
 	
 	@Override
