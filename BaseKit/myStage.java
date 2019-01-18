@@ -51,12 +51,12 @@ public class myStage extends Stage {
 
 	public double X()
 	{
-		return (int) getX();
+		return getX();
 	}
 
 	public double Y()
 	{
-		return (int) getY();
+		return getY();
 	}
 
 }

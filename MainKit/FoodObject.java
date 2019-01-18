@@ -16,6 +16,16 @@ public class FoodObject extends ViewObject {
 		growAmount = BlockSize();
 	}
 	
+	@Override
+	public double X() {
+		return Pos.X();
+	}
+	
+	@Override
+	public double Y() {
+		return Pos.Y();
+	}
+	
 	public PointD Position()
 	{
 		return Pos;
@@ -49,7 +59,7 @@ public class FoodObject extends ViewObject {
 		painter.setFill(Color.BLACK);
 	}
 	
-	private double growAmount;
+	private double growAmount, xPos, yPos;
 	private PointD Pos;
 	private int point;
 }

@@ -23,16 +23,16 @@ public class MainView extends View{
 		pWorker = new PaintWorker(this);
 		gController = new GameController(this);
 		sController = new SoundController();
+		oController = new OverLayController(this);
 		
 		sController.playMusic();
 		
-		pWorker.setPollRate(60);
+		Worker.setGlobalPollRate(120);
 	}
 	
 	@Override
 	protected void keyPressEvent(KeyEvent event) 
 	{
-		
 		if(event.getCode() == KeyCode.Q && event.isControlDown())
 		{
 			Worker.StopAll(); // Stop all worker instances
@@ -53,6 +53,7 @@ public class MainView extends View{
 				paintClear();
 				lController.drawObjects();
 				gController.drawObjects();
+				oController.drawObjects();
 				paintUpdate();
 			}
 		});
@@ -64,13 +65,9 @@ public class MainView extends View{
 		pWorker.start();
 	}
 	
-	public double pollRate()
-	{
-		return pWorker.PollRate();
-	}
-	
 	private GameController gController;
 	private LevelController lController;
 	private SoundController sController;
+	private OverLayController oController;
 	private PaintWorker pWorker;
 }

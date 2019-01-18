@@ -18,20 +18,22 @@ public class ObjectAnimator extends Worker {
 	
 	@Override
 	public void run() {
-		isBusy = true;
-		while(!stopThread && !stopAllThreads)
-		{
-			
-			double dt = target.Speed()*target.BlockSize()/PollRate();
-			Parent.moveObject(dt, dt);
-			
-			try {
-				sleep(pollResolution);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		synchronized (Parent) {
+			isBusy = true;
+			while(!stopThread && !stopAllThreads)
+			{
+				double dt = target.Speed()*target.BlockSize()/PollRate();
+				Parent.moveObject(dt, dt);
+				
+				try {
+					sleep(pollResolution);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
+		
 		isBusy = false;	
 	}
 	

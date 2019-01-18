@@ -6,7 +6,7 @@ public class Worker extends Thread {
 	
 	protected static boolean stopAllThreads = false;
 	protected boolean stopThread = false;
-	protected int pollResolution = 10;
+	protected static int pollResolution = 10;
 	protected View Parent;
 	private Thread t;
 	
@@ -16,20 +16,20 @@ public class Worker extends Thread {
 	public Worker()
 	{}
 	
-	public void setPollRate(int rate)
+	public static void setGlobalPollRate(int rate)
 	{
 		if(rate > 1000)
 			throw new IllegalArgumentException();
 		pollResolution = 1000/rate;
 	}
 	
-	public int PollRate()
+	public static double PollRate()
 	{
 		return 1000/pollResolution;
 	}
 	
 	@Override
-	public synchronized void start() {
+	public void start() {
 		if(t == null)
 		{
 			t = new Thread(this);

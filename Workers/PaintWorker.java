@@ -10,16 +10,19 @@ public class PaintWorker extends Worker {
 	
 	@Override
 	public void run() {
-		while(!stopThread && !stopAllThreads)
-		{
-			Parent.draw();
-			try {
-				sleep(pollResolution);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		synchronized (Parent) {
+			while(!stopThread && !stopAllThreads)
+			{
+				Parent.draw();
+				try {
+					sleep(pollResolution);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
+		
 	}
 	
 	private boolean stopThread = false;

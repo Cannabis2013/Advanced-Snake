@@ -147,12 +147,12 @@ public class LevelObject extends View {
 	 * 		- Set position
 	 */
 	
-	public double x()
+	public double X()
 	{
 		return xPos;
 	}
 	
-	public double y()
+	public double Y()
 	{
 		return yPos;
 	}

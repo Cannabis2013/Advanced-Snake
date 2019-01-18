@@ -8,6 +8,7 @@ import BaseKit.View;
 import BaseKit.PointD;
 import MainKit.SnakeObject.direction;
 import Workers.ObjectAnimator;
+import Workers.Worker;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -29,7 +30,7 @@ public class GameController extends Object {
 	
 	public void initializeSnakePosition(double x, double y)
 	{
-		snake = new SnakeObject(Parent,1, pollRate);
+		snake = new SnakeObject(Parent,1, Worker.PollRate());
 		snake.setWidth(level.BlockSize());
 		snake.setPosition(level.translate(x, y));
 		snake.setObjectName("Snake");
@@ -48,7 +49,7 @@ public class GameController extends Object {
 			lController.resetScoreboard();
 			snakeAnimator.Stop();
 			Parent.RemoveChild(snake);
-			snake = new SnakeObject(Parent,1,pollRate);
+			snake = new SnakeObject(Parent,1,Worker.PollRate());
 			initializeSnakePosition(level.columnCount()/2, level.rowCount()/2);
 			generateFoodObject();
 		}
@@ -59,7 +60,6 @@ public class GameController extends Object {
 		else if(key == KeyCode.ENTER && !snakeAnimator.isWorking())
 		{
 			snakeAnimator = new ObjectAnimator(this);
-			snakeAnimator.setPollRate(pollRate);
 			snakeAnimator.setTarget(snake);
 			snakeAnimator.start();
 		}
@@ -110,6 +110,8 @@ public class GameController extends Object {
 					snake.eat(food);
 					lController.addPoints(food.getPoint());
 					generateFoodObject();
+					OverLayController  oController = (OverLayController) Parent.Child("OverlayController");
+					oController.showText("Point",food.X() , food.Y(), 32, Color.WHITE, level.Width(), 1000);
 				}
 				snake.moveToCoordinates(nPos);
 			}
@@ -222,5 +224,4 @@ public class GameController extends Object {
 	private LevelObject level;
 	private ObjectAnimator snakeAnimator;
 	double blockRemainer;
-	int pollRate = 60;
 }

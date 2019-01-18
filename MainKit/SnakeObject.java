@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 
 public class SnakeObject extends ViewObject {
-	public SnakeObject(View parent, int l, int pollRate) {
+	public SnakeObject(View parent, int l, double pollRate) {
 		super(parent);
 		bodyCoordinates = new ArrayList<PointD>();
 		relativeCoordinates = new ArrayList<PointD>();
@@ -43,7 +43,7 @@ public class SnakeObject extends ViewObject {
 	public void setPosition(PointD pos)
 	{
 		double xPos = pos.X(), yPos = pos.Y(), dx = Speed()*BlockSize()/PollRate;
-		for (double i = 10*BlockSize(); i >= 0; i -= dx)
+		for (double i = BlockSize(); i >= 0; i -= dx)
 		{
 			bodyCoordinates.add(new PointD(xPos, yPos));
 			xPos -= dx;
@@ -133,6 +133,11 @@ public class SnakeObject extends ViewObject {
 			PointD pos = bodyCoordinates.get(i);
 			painter.fillRoundRect(pos.X(), pos.Y(),Width(),Width(), 45,45);
 		}
+		paintEyes();
+	}
+	
+	private void paintEyes()
+	{
 		painter.setFill(Color.WHITE);
 		if(CurrentDirection() == direction.left)
 		{
@@ -154,9 +159,7 @@ public class SnakeObject extends ViewObject {
 			painter.fillArc(position().X() + Width()/2, position().Y() + Width() - Width()/4, Width()/4 ,Width()/4, 0, 360, ArcType.ROUND);
 			painter.fillArc(position().X() + Width()/4, position().Y() + Width() - Width()/4, Width()/4,Width()/4, 0, 360, ArcType.ROUND);
 		}
-		
 	}
-	
 	private void initializeRelativeList()
 	{
 		LevelObject level = (LevelObject) Parent().Child("Level");
