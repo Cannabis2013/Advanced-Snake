@@ -109,17 +109,21 @@ public class SnakeObject extends ViewObject {
 		return speed;
 	}
 	
-	public boolean containsCoordinate(PointD pos)
+	public boolean containsCoordinate(PointD pos, boolean fullLenght)
 	{
-		
+		int I = 1, n = 2;
+		if(fullLenght)
+		{
+			I = 0;
+			n = 0;
+		}
+			
 		LevelObject level = (LevelObject) Parent().Child("Level");
 		PointD tempPos = level.relative(pos.copy());
-		for (int i = 1;i < relativeCoordinates.size() - 2;i++) {
+		for (int i = I;i < relativeCoordinates.size() - n;i++) {
 			PointD point = relativeCoordinates.get(i);
 			if(tempPos.Equals(point))
-			{
 				return true;
-			}
 		}
 		return false;
 	}

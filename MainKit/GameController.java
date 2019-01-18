@@ -78,6 +78,13 @@ public class GameController extends Object {
 				
 				blockRemainer -= dx;
 				PointD nPos = snake.position().copy();
+				
+				/*
+				 * First condition checks if the next position request is opposite of the current. If yes, returns false.
+				 * Second condition ensures that the shift in direction is safe which means that the Snake is well aligned with the grid.
+				 * The body correlates the position with regard to minor differencies as a consequence of rounding issues.
+				 */
+				
 				if((!isOpposite(snake.NextDirection(),snake.CurrentDirection()))
 						&& blockRemainer <= 0)
 				{					
@@ -90,15 +97,18 @@ public class GameController extends Object {
 				else
 					updateCoordinates(nPos, snake.CurrentDirection(),dx,dy);
 				
+				/*
+				 * Checks if the new position is part of the border and therefor correlates the Snakes head position.
+				 */
+				
 				CheckAndCorrelateBoundaries(nPos, snake);
 				
 				/*
 				 * Check for collison
-				 * First checks if the new position is part of the snakes body
-				 * Then checks if it is a 'Head meets head' scenario
+				 * Checks if the new position is part of the snakes body
 				 */
 				
-				if(snake.containsCoordinate(nPos))
+				if(snake.containsCoordinate(nPos,false))
 				{
 					snake.Kill();
 					snakeAnimator.Stop();
@@ -110,7 +120,7 @@ public class GameController extends Object {
 					snake.eat(food);
 					lController.addPoints(food.getPoint());
 					generateFoodObject();
-					OverLayController  oController = (OverLayController) Parent.Child("OverlayController");
+					OverLayController oController = (OverLayController) Parent.Child("OverlayController");
 					oController.showText("Point",food.X() , food.Y(), 32, Color.WHITE, level.Width(), 1000);
 				}
 				snake.moveToCoordinates(nPos);
@@ -189,7 +199,7 @@ public class GameController extends Object {
 		double x = generator.nextInt(level.columnCount()),
 				y = generator.nextInt(level.rowCount());
 		
-		while(snake.containsCoordinate(level.translate(new PointD(x, y))))
+		while(snake.containsCoordinate(level.translate(new PointD(x, y)),true))
 		{
 			x = generator.nextInt(level.columnCount());
 			y = generator.nextInt(level.rowCount());
