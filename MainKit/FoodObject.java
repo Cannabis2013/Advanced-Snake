@@ -3,6 +3,7 @@ package MainKit;
 import BaseKit.View;
 import BaseKit.PointD;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 
 public class FoodObject extends ViewObject {
 
@@ -44,7 +45,7 @@ public class FoodObject extends ViewObject {
 	public void draw()
 	{
 		painter.setFill(bodyColor);
-		painter.fillRect(Pos.X(), Pos.Y(), BlockSize(), BlockSize());
+		painter.fillArc(Pos.X(),Pos.Y(), BlockSize(), BlockSize(), 0, 360, ArcType.ROUND);
 		painter.setFill(Color.BLACK);
 	}
 	

@@ -2,6 +2,8 @@ package MainKit;
 
 
 import BaseKit.View;
+import Workers.PaintWorker;
+import Workers.Worker;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;

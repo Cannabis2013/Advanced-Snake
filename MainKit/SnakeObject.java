@@ -5,6 +5,7 @@ import java.util.List;
 import BaseKit.PointD;
 import BaseKit.View;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 
 public class SnakeObject extends ViewObject {
 	public SnakeObject(View parent, int l, int pollRate) {
@@ -13,7 +14,7 @@ public class SnakeObject extends ViewObject {
 		relativeCoordinates = new ArrayList<PointD>();
 		currentDirection = direction.left;
 		nextDirection = currentDirection;
-		speed = 5;
+		speed = 10;
 		PollRate = pollRate;
 		setWidth(1);
 		grow = 0;
@@ -50,7 +51,7 @@ public class SnakeObject extends ViewObject {
 		initializeRelativeList();
 	}
 	
-	public PointD Position()
+	public PointD position()
 	{
 		return bodyCoordinates.get(bodyCoordinates.size() -1);
 	}
@@ -131,14 +132,35 @@ public class SnakeObject extends ViewObject {
 			PointD pos = bodyCoordinates.get(i);
 			painter.fillRoundRect(pos.X(), pos.Y(),Width(),Width(), 45,45);
 		}
-		painter.setFill(Color.BLACK);
+		painter.setFill(Color.WHITE);
+		if(CurrentDirection() == direction.left)
+		{
+			painter.fillArc(position().X(), position().Y() + Width()/2, Width()/4,Width()/4, 0, 360, ArcType.ROUND);
+			painter.fillArc(position().X(), position().Y() + Width()/4, Width()/4,Width()/4, 0, 360, ArcType.ROUND);
+		}
+		else if(CurrentDirection() == direction.right)
+		{
+			painter.fillArc(position().X() + Width() - Width()/4, position().Y() + Width()/2, Width()/4,Width()/4, 0, 360, ArcType.ROUND);
+			painter.fillArc(position().X() + Width() - Width()/4, position().Y() + Width()/4, Width()/4,Width()/4, 0, 360, ArcType.ROUND);
+		}
+		else if(currentDirection == direction.up)
+		{
+			painter.fillArc(position().X() + Width()/2, position().Y(), Width()/4 ,Width()/4, 0, 360, ArcType.ROUND);
+			painter.fillArc(position().X() + Width()/4, position().Y(), Width()/4,Width()/4, 0, 360, ArcType.ROUND);
+		}
+		else if(currentDirection == direction.down)
+		{
+			painter.fillArc(position().X() + Width()/2, position().Y() + Width() - Width()/4, Width()/4 ,Width()/4, 0, 360, ArcType.ROUND);
+			painter.fillArc(position().X() + Width()/4, position().Y() + Width() - Width()/4, Width()/4,Width()/4, 0, 360, ArcType.ROUND);
+		}
+		
 	}
 	
 	private void initializeRelativeList()
 	{
 		LevelObject level = (LevelObject) Parent().Child("Level");
 		relativeCoordinates.clear();
-		PointD startPos = level.relative(Position());
+		PointD startPos = level.relative(position());
 		relativeCoordinates.add(startPos);
 		int n = 0;
 		for (int i = bodyCoordinates.size() - 1; i >= 0; i--) {

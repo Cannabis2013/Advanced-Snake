@@ -7,6 +7,7 @@ import BaseKit.Object;
 import BaseKit.View;
 import BaseKit.PointD;
 import MainKit.SnakeObject.direction;
+import Workers.ObjectAnimator;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -31,7 +32,7 @@ public class GameController extends Object {
 		snake.setWidth(level.BlockSize());
 		snake.setPosition(level.translate(x, y));
 		snake.setObjectName("Snake");
-		snake.setColor(Color.GRAY);
+		snake.setColor(Color.GREEN);
 	}
 	
 	public void addSemiInteractiveObject(ViewObject obj)
@@ -74,7 +75,7 @@ public class GameController extends Object {
 			@Override
 			public void run() {
 				blockRemainer -= dx;
-				PointD nPos = snake.Position().copy();
+				PointD nPos = snake.position().copy();
 				if((!isOpposite(snake.NextDirection(),snake.CurrentDirection()))
 						&& blockRemainer <= 0)
 				{					

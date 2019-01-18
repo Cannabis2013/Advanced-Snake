@@ -7,7 +7,6 @@ import javafx.scene.paint.Color;
 public abstract class ViewObject extends View {
 	
 	public ViewObject() {
-		player = null;
 	}
 	
 	public ViewObject(View parent) {

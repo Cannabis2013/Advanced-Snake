@@ -1,6 +1,8 @@
-package MainKit;
+package Workers;
 
 import BaseKit.Object;
+import MainKit.GameController;
+import MainKit.SnakeObject;
 
 public class ObjectAnimator extends Worker {
 	
