@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import BaseKit.View;
 import MainKit.MainView;
 import MainKit.OverLayController;
+import MainKit.TextObject.fillMode;
 import Workers.PaintWorker;
 import Workers.Worker;
 import javafx.application.Platform;
@@ -80,11 +81,13 @@ public class Introscreen extends View {
 	
 	private void showIntroText()
 	{
-		int pSize = 96;
+		int pSize = 64;
 		Text txt = new Text("Press Enter to play or CTRL + Q to quit!");
 		txt.setFont(new Font(pSize));
-		double x = Width()/2- txt.getLayoutBounds().getWidth()/2;
-		oController.showText("Press Enter to play or CTRL + Q to quit!", x, Height()/2, pSize, Color.BLACK, Width());
+		double x = Width()/2 - txt.getLayoutBounds().getWidth()/2;
+		oController.showText("Press Enter to play or CTRL + Q to quit!", x, 
+				Height()/1.2, 
+				pSize, Color.WHITE,fillMode.boxedText, Width());
 	}
 	private OverLayController oController;
 	private PaintWorker pWorker;

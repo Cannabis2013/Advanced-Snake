@@ -7,6 +7,7 @@ import BaseKit.Object;
 import BaseKit.View;
 import BaseKit.PointD;
 import MainKit.SnakeObject.direction;
+import MainKit.TextObject.fillMode;
 import Workers.ObjectAnimator;
 import Workers.Worker;
 import javafx.application.Platform;
@@ -117,9 +118,13 @@ public class GameController extends Object {
 					snake.Kill();
 					snakeAnimator.Stop();
 					double x = level.LeftBound(),
-							y = level.UpperBound() + level.Height()/2;
+							y = level.UpperBound() + level.Height()/2 + 128;
 					OverLayController oController = (OverLayController) Parent.Child("OverlayController");
-					oController.showText("Game Over", x, y, 512, Color.RED, level.Width() - level.BlockSize());
+					oController.showText("Game Over", x, y, 
+							512, 
+							Color.RED, 
+							fillMode.cleanText, 
+							level.Width() - 2*level.BorderWidth());
 					return;					
 				}
 				FoodObject food = (FoodObject) SemiInteractiveObject("Food");
@@ -129,7 +134,7 @@ public class GameController extends Object {
 					lController.addPoints(food.getPoint());
 					generateFoodObject();
 					OverLayController oController = (OverLayController) Parent.Child("OverlayController");
-					oController.showText("Point",food.X() , food.Y(), 32, Color.WHITE, level.Width(), 1000);
+					oController.showText("Point",food.X() , food.Y(), 32, Color.WHITE,fillMode.cleanText, level.Width(), 1000);
 				}
 				snake.moveToCoordinates(nPos);
 			}

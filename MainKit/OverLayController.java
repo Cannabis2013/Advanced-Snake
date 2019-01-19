@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import BaseKit.Object;
 import BaseKit.View;
+import MainKit.TextObject.fillMode;
 import javafx.scene.paint.Color;
 
 public class OverLayController extends Object {
@@ -23,17 +24,18 @@ public class OverLayController extends Object {
 			obj.draw();
 	}
 	
-	public void showText(String txt, double x, double y, int pointSize, Color textColor, double maxWidth)
+	public void showText(String txt, double x, double y, int pointSize, Color textColor,fillMode Mode, double maxWidth)
 	{
 		View parent = (View) Parent();
-		TextObject obj = new TextObject(parent,txt, x, y, pointSize, textColor,maxWidth);
+		TextObject obj = new TextObject(parent,txt, x, y, pointSize, textColor, Mode, maxWidth);
+		obj.setBoxColor(Color.BLACK);
 		textObjects.add(obj);
 	}
 	
-	public void showText(String txt, double x, double y, int pointSize, Color textColor, double maxWidth,int milliseconds)
+	public void showText(String txt, double x, double y, int pointSize, Color textColor, fillMode Mode,double maxWidth,int milliseconds)
 	{
 		View parent = (View) Parent();
-		TextObject obj = new TextObject(parent,txt, x, y, pointSize, textColor,maxWidth);
+		TextObject obj = new TextObject(parent,txt, x, y, pointSize, textColor, Mode, maxWidth);
 		textObjects.add(obj);
 		Timer tm = new Timer();
 		tm.schedule(new TimerTask() {
