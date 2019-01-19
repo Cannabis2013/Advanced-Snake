@@ -3,12 +3,16 @@ package MainKit;
 import java.io.File;
 
 import BaseKit.Object;
+import BaseKit.View;
+import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 public class SoundController extends Object {
-	public SoundController() {
+	public SoundController(View parent) {
+		super(parent);
+		setObjectName("SoundController");
 		Media music = new Media(new File("Music\\music.wav").toURI().toString());
 		volume = 0.5;
 		backgroundPlayer = new MediaPlayer(music);
@@ -31,13 +35,13 @@ public class SoundController extends Object {
 		backgroundPlayer.stop();
 	}
 	
-	public static void playSoundEffect(String path)
+	public void playSoundEffect(String path)
 	{
 		Media sound = new Media(new File(path).toURI().toString());
-		MediaPlayer player = new MediaPlayer(sound);
-		player.setVolume(volume);
-		player.play();
+		fxPlayer = new MediaPlayer(sound);
+		fxPlayer.setVolume(volume);
+		fxPlayer.play();
 	}
-	private MediaPlayer backgroundPlayer;
+	private MediaPlayer backgroundPlayer,fxPlayer;
 	private static double volume;
 }

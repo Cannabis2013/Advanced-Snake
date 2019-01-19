@@ -5,7 +5,7 @@ import BaseKit.View;
 public class PaintWorker extends Worker {
 
 	public PaintWorker(View parent) {
-		Parent = parent;
+		super(parent);
 	}
 	
 	@Override
@@ -24,8 +24,4 @@ public class PaintWorker extends Worker {
 		}
 		
 	}
-	
-	private boolean stopThread = false;
-	private int pollResolution = 10;
-	private View Parent;
 }

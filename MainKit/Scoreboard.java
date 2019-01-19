@@ -15,8 +15,10 @@ public class Scoreboard extends View{
 		super(parent);
 		borderColor = Color.BROWN;
 		fillColor = Color.GRAY;
-		keyboardShortcuts = Arrays.asList("CTRL + Q = Quit", 
-				"R = Reset", 
+		keyboardShortcuts = Arrays.asList("Enter = Begin",
+				"CTRL + Q = Quit", 
+				"R = Reset",
+				"P = Pause",
 				"Left arrow key = Move left", 
 				"Right arrow key = Move right", 
 				"Up arrow key = Move up", 

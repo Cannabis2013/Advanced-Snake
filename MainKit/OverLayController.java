@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 
 public class OverLayController extends Object {
 
-	public OverLayController(MainView parent) {
+	public OverLayController(View parent) {
 		super(parent);
 		setObjectName("OverlayController");
 		textObjects = new ArrayList<>();
@@ -25,14 +25,14 @@ public class OverLayController extends Object {
 	
 	public void showText(String txt, double x, double y, int pointSize, Color textColor, double maxWidth)
 	{
-		MainView parent = (MainView) Parent();
+		View parent = (View) Parent();
 		TextObject obj = new TextObject(parent,txt, x, y, pointSize, textColor,maxWidth);
 		textObjects.add(obj);
 	}
 	
 	public void showText(String txt, double x, double y, int pointSize, Color textColor, double maxWidth,int milliseconds)
 	{
-		MainView parent = (MainView) Parent();
+		View parent = (View) Parent();
 		TextObject obj = new TextObject(parent,txt, x, y, pointSize, textColor,maxWidth);
 		textObjects.add(obj);
 		Timer tm = new Timer();

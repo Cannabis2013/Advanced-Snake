@@ -1,6 +1,8 @@
 package MainKit;
 
 import BaseKit.Object;
+import PreKit.Introscreen;
+
 import java.util.List;
 
 import javafx.application.Application;
@@ -24,6 +26,7 @@ public class App extends Application {
 		/*
 		 * Checks if any arguments is passed. Only pair of integers is accepted.
 		 * If no arguments passed, standard values will be chosen.
+		 * If arguments passed is not integers standard values will be chosen.
 		 */
 		int r = 30, c = 40;
 		if (parameters.size() == 2) {
@@ -44,10 +47,12 @@ public class App extends Application {
 		
 		if(r < 5 || r > 100 || c < 5 || c > 100)
 			throw new IllegalArgumentException();
-		MainView mView = new MainView(r, c);
-		mView.show();
-		//Introscreen startScreen = new Introscreen();
-		//startScreen.Show();
+		/*
+		
+		*/
+		
+		Introscreen startScreen = new Introscreen(r,c);
+		startScreen.Show();
 		}
 	public void exec(String[] args)
 	{

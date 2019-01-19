@@ -10,6 +10,7 @@ import javafx.scene.shape.ArcType;
 public class SnakeObject extends ViewObject {
 	public SnakeObject(View parent, int l, double pollRate) {
 		super(parent);
+		sController = (SoundController) Parent().Child("SoundController");
 		bodyCoordinates = new ArrayList<PointD>();
 		relativeCoordinates = new ArrayList<PointD>();
 		currentDirection = direction.left;
@@ -28,13 +29,13 @@ public class SnakeObject extends ViewObject {
 	public void Kill()
 	{
 		dead = true;
-		SoundController.playSoundEffect(dieSound);
+		sController.playSoundEffect(dieSound);
 	}
 	
 	public void eat(FoodObject obj)
 	{
 		grow += obj.GrowAmount();
-		SoundController.playSoundEffect(eatSound);
+		sController.playSoundEffect(eatSound);
 		incrementSpeed(0.25);
 	}
 	
@@ -43,7 +44,7 @@ public class SnakeObject extends ViewObject {
 	public void setPosition(PointD pos)
 	{
 		double xPos = pos.X(), yPos = pos.Y(), dx = Speed()*BlockSize()/PollRate;
-		for (double i = BlockSize(); i >= 0; i -= dx)
+		for (double i = 2*BlockSize(); i >= 0; i -= dx)
 		{
 			bodyCoordinates.add(new PointD(xPos, yPos));
 			xPos -= dx;
@@ -135,7 +136,7 @@ public class SnakeObject extends ViewObject {
 		painter.setFill(bodyColor);
 		for (int i = bodyCoordinates.size() - 1; i >= 0; i--) {
 			PointD pos = bodyCoordinates.get(i);
-			painter.fillRoundRect(pos.X(), pos.Y(),Width(),Width(), 45,45);
+			painter.fillRoundRect(pos.X(), pos.Y(),Width() ,Width(), 45,45);
 		}
 		paintEyes();
 	}
@@ -186,5 +187,6 @@ public class SnakeObject extends ViewObject {
 	private List<PointD> bodyCoordinates, relativeCoordinates;
 	private double speed, PollRate, grow;
 	private boolean dead = false;
-	private String eatSound = "SoundFx\\attack.wav", dieSound = "SoundFx\\death.wav";;
+	private String eatSound = "SoundFx\\attack.wav", dieSound = "SoundFx\\death.wav";
+	private SoundController sController;
 }

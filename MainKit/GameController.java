@@ -46,6 +46,8 @@ public class GameController extends Object {
 	{	
 		if(key == KeyCode.R)
 		{
+			OverLayController oController = (OverLayController) Parent.Child("OverlayController");
+			oController.clear();
 			lController.resetScoreboard();
 			snakeAnimator.Stop();
 			Parent.RemoveChild(snake);
@@ -53,12 +55,14 @@ public class GameController extends Object {
 			initializeSnakePosition(level.columnCount()/2, level.rowCount()/2);
 			generateFoodObject();
 		}
-		else if(key == KeyCode.S)
+		else if(key == KeyCode.P)
 		{
 			snakeAnimator.Stop();
 		}
 		else if(key == KeyCode.ENTER && !snakeAnimator.isWorking())
 		{
+			if(snake.isDead())
+				return;
 			snakeAnimator = new ObjectAnimator(this);
 			snakeAnimator.setTarget(snake);
 			snakeAnimator.start();
@@ -112,6 +116,10 @@ public class GameController extends Object {
 				{
 					snake.Kill();
 					snakeAnimator.Stop();
+					double x = level.LeftBound(),
+							y = level.UpperBound() + level.Height()/2;
+					OverLayController oController = (OverLayController) Parent.Child("OverlayController");
+					oController.showText("Game Over", x, y, 512, Color.RED, level.Width() - level.BlockSize());
 					return;					
 				}
 				FoodObject food = (FoodObject) SemiInteractiveObject("Food");

@@ -46,4 +46,9 @@ public class Worker extends Thread {
 	{
 		stopAllThreads = true;
 	}
+	
+	public static void reInitialize()
+	{
+		stopAllThreads = false;
+	}
 }
