@@ -124,7 +124,7 @@ public class GameController extends Object {
 							512, 
 							Color.RED, 
 							fillMode.cleanText, 
-							level.Width() - 2*level.BorderWidth());
+							level.Width() - 2*SettingsClass.LevelBorderWidth);
 					return;					
 				}
 				FoodObject food = (FoodObject) SemiInteractiveObject("Food");

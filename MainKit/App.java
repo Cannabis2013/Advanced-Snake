@@ -47,11 +47,11 @@ public class App extends Application {
 		
 		if(r < 5 || r > 100 || c < 5 || c > 100)
 			throw new IllegalArgumentException();
-		/*
 		
-		*/
+		SettingsClass.rows = r;
+		SettingsClass.columns = c;
 		
-		Introscreen startScreen = new Introscreen(r,c);
+		Introscreen startScreen = new Introscreen();
 		startScreen.Show();
 		}
 	public void exec(String[] args)

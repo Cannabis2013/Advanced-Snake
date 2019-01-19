@@ -76,14 +76,15 @@ public class Scoreboard extends View{
 	 */
 	@Override
 	public void draw() {
+		// Draw borders
 		GraphicsContext painter = Parent().getPainter();
-		painter.setFill(borderColor);
+		painter.setFill(SettingsClass.ScoreBoardBorder);
 		painter.fillRoundRect(X(), Y(), Width(), Height(), borderRadius, borderRadius);
 		painter.setFill(fillColor);
 		painter.fillRect(ContentX(), ContentY(), ContentWidth(), ContentHeight());
 		
 		// Draw headline
-		painter.setFill(Color.BLACK);
+		painter.setFill(SettingsClass.ScoreBoardHeadline);
 		Font txtHeading = new Font(48);
 		painter.setFont(txtHeading);
 		
@@ -100,7 +101,9 @@ public class Scoreboard extends View{
 		painter.setLineWidth(1);
 		
 		
+		// Draw player score
 		
+		painter.setFill(SettingsClass.ScoreBoardText);
 		Font txtNormal = new Font(24);
 		painter.setFont(txtNormal);
 		
@@ -117,13 +120,14 @@ public class Scoreboard extends View{
 		painter.setLineWidth(1);
 		
 		y += 32;
+		// Draw keyboardcontrol descriptions
+		painter.setFill(SettingsClass.ScoreBoardHeadline);
 		txtHeading = new Font(28);
-		
 		painter.setFont(txtHeading);
 		painter.fillText("Keyboard shortcuts", x, y);
 		
+		painter.setFill(SettingsClass.ScoreBoardText);
 		txtNormal = new Font(16);
-		
 		painter.setFont(txtNormal);
 		y += 32;
 		

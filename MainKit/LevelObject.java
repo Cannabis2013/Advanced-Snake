@@ -15,8 +15,8 @@ public class LevelObject extends View {
 		borderWidth = 20;
 		xPos = 0;
 		yPos = 0;
-		verticalTopMargin = 0;
-		verticalBottomMargin = 0;
+		verticalTopMargin = SettingsClass.vMarginTop;
+		verticalBottomMargin = SettingsClass.vMarginBottom;
 	}
 	
 	public void setHorizontalCenter()
@@ -35,16 +35,6 @@ public class LevelObject extends View {
 	 * 		- Set border width
 	 */
 	
-	public double BorderWidth()
-	{
-		return borderWidth;
-	}
-	
-	public void setBorderWidth(double w)
-	{
-		borderWidth = w;
-	}
-	
 	public double BlockSize()
 	{
 		return gridHeight()/rows;
@@ -54,12 +44,12 @@ public class LevelObject extends View {
 	
 	public double translateX(double x)
 	{
-		return  xPos + x*BlockSize() + borderWidth;
+		return  xPos + x*BlockSize() + SettingsClass.LevelBorderWidth;
 	}
 	
 	public double translateY(double y)
 	{
-		return  yPos + verticalTopMargin + y*BlockSize() + borderWidth;
+		return  yPos + verticalTopMargin + y*BlockSize() + SettingsClass.LevelBorderWidth;
 	}
 	
 	public PointD translate(double x, double y)
@@ -81,12 +71,12 @@ public class LevelObject extends View {
 	
 	public int relativeX(double x)
 	{
-		return (int) PointD.round((x-(xPos+borderWidth))/BlockSize(), 0);
+		return (int) PointD.round((x-(xPos+SettingsClass.LevelBorderWidth))/BlockSize(), 0);
 	}
 	
 	public int relativeY(double y)
 	{
-		return (int) PointD.round((y-(yPos+borderWidth + verticalTopMargin))/BlockSize(), 0);
+		return (int) PointD.round((y-(yPos+SettingsClass.LevelBorderWidth + verticalTopMargin))/BlockSize(), 0);
 	}
 	
 	public PointD relative(PointD pos)
@@ -108,12 +98,12 @@ public class LevelObject extends View {
 	@Override
 	public double Height()
 	{
-		return 2*BorderWidth() + gridHeight() + verticalBottomMargin + verticalTopMargin;
+		return 2*SettingsClass.LevelBorderWidth + gridHeight() + SettingsClass.vMarginBottom + SettingsClass.vMarginTop;
 	}
 	
 	@Override
 	public double Width() {
-		return gridWidth() + 2*borderWidth;
+		return gridWidth() + 2*SettingsClass.LevelBorderWidth;
 	}
 	
 	/*
@@ -263,13 +253,17 @@ public class LevelObject extends View {
 	private void paint(DisplayMode m, String text)
 	{
 		//Draw border
-		painter.setFill(Color.BROWN);
-		painter.fillRoundRect(translateX(0) - borderWidth, translateY(0) - borderWidth, columns*BlockSize() + borderWidth*2, gridHeight() + borderWidth*2,30,30);
-		painter.setFill(Color.BLACK);
+		painter.setFill(SettingsClass.borderColor);
+		painter.fillRoundRect(translateX(0) - SettingsClass.LevelBorderWidth,
+				translateY(0) - SettingsClass.LevelBorderWidth, 
+				columns*BlockSize() + SettingsClass.LevelBorderWidth*2, 
+				gridHeight() + SettingsClass.LevelBorderWidth*2,30,30);
+		painter.setFill(SettingsClass.LevelBackgroundColor);
 		painter.fillRect(translateX(0), translateY(0), columns*BlockSize(), gridHeight());
 		
 		if(m == DisplayMode.strongGitter)
 		{
+			painter.setFill(SettingsClass.gridColor);
 			for (int i = 0; i <= columns; i++)
 				painter.strokeLine(translateX(i), translateY(0), translateX(i), lastColumn()+BlockSize());
 			for (int i = 0; i <= rows; i++) {
@@ -280,7 +274,7 @@ public class LevelObject extends View {
 		{
 			double pointSize = 128;
 			painter.setFont(new Font(pointSize));
-			painter.setFill(Color.RED);
+			painter.setFill(SettingsClass.textColor);
 			painter.fillText(text, translateX(0), Parent().Height()/2, Parent().Width());			
 		}
 	}

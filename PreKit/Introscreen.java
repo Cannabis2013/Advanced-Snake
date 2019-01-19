@@ -20,9 +20,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Introscreen extends View {
-	public Introscreen(int rows, int columns) {
-		r = rows;
-		c = columns;
+	public Introscreen() {
+		
 		setFullScreen(true);
 		super.show();
 		FileInputStream inputstream;
@@ -45,7 +44,7 @@ public class Introscreen extends View {
 	protected void keyPressEvent(KeyEvent event) {
 		if(event.getCode() == KeyCode.ENTER)
 		{
-			MainView mView = new MainView(this,r, c);
+			MainView mView = new MainView(this);
 			pWorker.Stop();
 			mView.show();
 			Close();

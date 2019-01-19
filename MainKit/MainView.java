@@ -7,28 +7,25 @@ import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 	
 public class MainView extends View{
-	public  MainView(View parent,int gridRows, int gridColumns) 
+	public  MainView(View parent) 
 	{
-		IntroParent = parent;
 		Worker.setGlobalPollRate(120);
-		setBackgroundColor(Color.BLACK);
+		setBackgroundColor(SettingsClass.backgroundColor);
 		setFullScreen(true);
 		super.show();
 		
 		/*
 		 * Initialize the controllers
 		 */
-		lController = new LevelController(this, gridRows, gridColumns);
+		lController = new LevelController(this);
 		pWorker = new PaintWorker(this);
 		sController = new SoundController(this);
 		gController = new GameController(this);
 		oController = new OverLayController(this);
 		
 		sController.playMusic();
-		
 	}
 	
 	@Override
@@ -72,5 +69,4 @@ public class MainView extends View{
 	private SoundController sController;
 	private OverLayController oController;
 	private PaintWorker pWorker;
-	private View IntroParent;
 }

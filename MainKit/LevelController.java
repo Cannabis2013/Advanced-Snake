@@ -7,13 +7,13 @@ import java.util.List;
 import BaseKit.View;
 
 public class LevelController extends Object {
-	public LevelController(MainView parent, int rows, int columns) {
+	public LevelController(MainView parent) {
 		super(parent);
 		setObjectName("LevelController");
 		levelObjects = new ArrayList<>();
 		level = new LevelObject(parent);
 		level.setObjectName("Level");
-		setupLevel(rows, columns, 0, 0, 20, 50, 50);
+		setupLevel(SettingsClass.rows, SettingsClass.columns, 0, 0, 20, SettingsClass.vMarginTop, SettingsClass.vMarginBottom);
 		
 		levelObjects.add(level);
 		Scoreboard box = new Scoreboard(parent);
@@ -59,7 +59,6 @@ public class LevelController extends Object {
 	{
 		level.setRows(rows);
 		level.setColumns(columns);
-		level.setBorderWidth(borderwidth);
 		level.setverticalTopMargin(vTopMargin);
 		level.setVerticalBottomMargin(vBottomMargin);
 		level.setX(x);
