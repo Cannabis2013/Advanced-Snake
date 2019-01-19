@@ -14,7 +14,7 @@ public class MainView extends View{
 	{
 		IntroParent = parent;
 		Worker.setGlobalPollRate(120);
-		setBackgroundColor(Color.DARKBLUE);
+		setBackgroundColor(Color.BLACK);
 		setFullScreen(true);
 		super.show();
 		

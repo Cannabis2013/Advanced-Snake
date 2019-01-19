@@ -14,7 +14,7 @@ public class Scoreboard extends View{
 	public Scoreboard(MainView parent) {
 		super(parent);
 		borderColor = Color.BROWN;
-		fillColor = Color.GRAY;
+		fillColor = Color.WHITE;
 		keyboardShortcuts = Arrays.asList("Enter = Begin",
 				"CTRL + Q = Quit", 
 				"R = Reset",
