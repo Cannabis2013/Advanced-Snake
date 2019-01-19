@@ -2,8 +2,6 @@ package MainKit;
 
 import BaseKit.View;
 import BaseKit.PointD;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class LevelObject extends View {

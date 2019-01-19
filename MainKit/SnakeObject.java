@@ -15,7 +15,7 @@ public class SnakeObject extends ViewObject {
 		relativeCoordinates = new ArrayList<PointD>();
 		currentDirection = direction.left;
 		nextDirection = currentDirection;
-		speed = 10;
+		speed = SettingsClass.SnakeSpeed;
 		PollRate = pollRate;
 		setWidth(1);
 		grow = 0;

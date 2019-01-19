@@ -39,6 +39,8 @@ public class App extends Application {
 				r = Integer.parseInt(rows);
 				c = Integer.parseInt(columns);				
 			}
+			
+			
 		}
 		
 		/*

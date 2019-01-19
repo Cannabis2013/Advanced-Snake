@@ -9,7 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 	
 public class MainView extends View{
-	public  MainView(View parent) 
+	public  MainView() 
 	{
 		Worker.setGlobalPollRate(120);
 		setBackgroundColor(SettingsClass.backgroundColor);
@@ -23,9 +23,9 @@ public class MainView extends View{
 		pWorker = new PaintWorker(this);
 		sController = new SoundController(this);
 		gController = new GameController(this);
-		oController = new OverLayController(this);
 		
 		sController.playMusic();
+		pWorker.start();
 	}
 	
 	@Override
@@ -52,21 +52,13 @@ public class MainView extends View{
 				paintClear();
 				lController.drawObjects();
 				gController.drawObjects();
-				oController.drawObjects();
 				paintUpdate();
 			}
 		});
 	}
 	
-	public void show()
-	{
-		draw();
-		pWorker.start();
-	}
-	
 	private GameController gController;
 	private LevelController lController;
 	private SoundController sController;
-	private OverLayController oController;
 	private PaintWorker pWorker;
 }

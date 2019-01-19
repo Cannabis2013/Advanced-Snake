@@ -37,4 +37,12 @@ public final class SettingsClass {
 	public static double vMarginTop = 50;
 	public static double vMarginBottom = 50;
 	public static double LevelBorderWidth = 20;
+	
+	/*
+	 * Snake properties
+	 *  - Snake color
+	 */
+	
+	public static Color SnakeColor = Color.GREEN;
+	public static double SnakeSpeed = 10;
 }

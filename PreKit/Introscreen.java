@@ -35,7 +35,6 @@ public class Introscreen extends View {
 		pWorker = new PaintWorker(this);
 		oController = new OverLayController(this);
 		
-		
 		Worker.setGlobalPollRate(2);
 		showIntroText();
 	}
@@ -44,9 +43,8 @@ public class Introscreen extends View {
 	protected void keyPressEvent(KeyEvent event) {
 		if(event.getCode() == KeyCode.ENTER)
 		{
-			MainView mView = new MainView(this);
+			new MainView();
 			pWorker.Stop();
-			mView.show();
 			Close();
 		}
 		else if(event.isControlDown() && event.getCode() == KeyCode.Q)
@@ -90,5 +88,5 @@ public class Introscreen extends View {
 	}
 	private OverLayController oController;
 	private PaintWorker pWorker;
-	int counter = 0, r, c;
+	private int counter = 0, r, c;
 }
