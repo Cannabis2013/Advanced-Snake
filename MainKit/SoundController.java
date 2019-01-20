@@ -1,10 +1,7 @@
 package MainKit;
 
-import java.io.File;
-
 import BaseKit.Object;
 import BaseKit.View;
-import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -19,7 +16,7 @@ public class SoundController extends Object {
 	
 	public void playRepeatet(String path)
 	{
-		Media music = new Media(new File(path).toURI().toString());
+		Media music = new Media(path);
 		volume = 0.5;
 		backgroundPlayer = new MediaPlayer(music);
 		backgroundPlayer.setVolume(volume);
@@ -39,7 +36,7 @@ public class SoundController extends Object {
 	
 	public void playSoundEffect(String path)
 	{
-		Media sound = new Media(new File(path).toURI().toString());
+		Media sound = new Media(path);
 		fxPlayer = new MediaPlayer(sound);
 		fxPlayer.setVolume(volume/2);
 		fxPlayer.play();

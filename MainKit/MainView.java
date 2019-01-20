@@ -24,7 +24,7 @@ public class MainView extends View{
 		sController = new SoundController(this);
 		gController = new GameController(this);
 		
-		sController.playRepeatet("Music/game_music.mp3");
+		sController.playRepeatet(MainView.class.getResource("/game_music.mp3").toString());
 		pWorker.start();
 	}
 	

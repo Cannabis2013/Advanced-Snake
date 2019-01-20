@@ -13,8 +13,6 @@ import javafx.scene.text.Font;
 public class Scoreboard extends View{
 	public Scoreboard(MainView parent) {
 		super(parent);
-		borderColor = Color.BROWN;
-		fillColor = Color.WHITE;
 		keyboardShortcuts = Arrays.asList("Enter = Begin",
 				"CTRL + Q = Quit", 
 				"R = Reset",
@@ -80,7 +78,7 @@ public class Scoreboard extends View{
 		GraphicsContext painter = Parent().getPainter();
 		painter.setFill(SettingsClass.ScoreBoardBorder);
 		painter.fillRoundRect(X(), Y(), Width(), Height(), borderRadius, borderRadius);
-		painter.setFill(fillColor);
+		painter.setFill(SettingsClass.ScoreBoardBackground);
 		painter.fillRect(ContentX(), ContentY(), ContentWidth(), ContentHeight());
 		
 		// Draw headline
@@ -136,7 +134,6 @@ public class Scoreboard extends View{
 	}
 	private int gamePoint = 0;
 	private double borderWidth = 1, borderRadius = 0;
-	private Color borderColor, fillColor;
 	private List<String> keyboardShortcuts;
 
 }

@@ -2,8 +2,10 @@ package PreKit;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 import BaseKit.View;
 import MainKit.MainView;
@@ -25,21 +27,16 @@ public class Introscreen extends View {
 		
 		setFullScreen(true);
 		super.show();
-		FileInputStream inputstream;
-		try {
-			inputstream = new FileInputStream("Pictures\\Snake.jpg");
-			double w = Width(), h = Height();
-			setBackground(new Image(inputstream,w,h,false,true));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		URL imgUrl = Introscreen.class.getResource("/Snake.jpg");
+		Image img = new Image(imgUrl.toString());
+		setBackground(img);
 		pWorker = new PaintWorker(this);
 		sController = new SoundController(this);
 		oController = new OverLayController(this);
 		
 		Worker.setGlobalPollRate(2);
 		showIntroText();
-		sController.playRepeatet("Music/Intro_music.mp3");
+		sController.playRepeatet(Introscreen.class.getResource("/Intro_music.mp3").toString());
 	}
 	
 	@Override
