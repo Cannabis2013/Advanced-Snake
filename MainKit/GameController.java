@@ -86,7 +86,7 @@ public class GameController extends Object {
 				 * The body correlates the position with regard to minor differencies as a consequence of rounding issues.
 				 */
 				
-				if((!isOpposite(snake.NextDirection(),snake.CurrentDirection()))
+				if(!isOpposite(snake.NextDirection(),snake.CurrentDirection())
 						&& blockRemainer <= 0)
 				{					
 					snake.setCurrentDirection(snake.NextDirection());
@@ -109,29 +109,7 @@ public class GameController extends Object {
 				 * Checks if the new position is part of the snakes body
 				 */
 				
-				if(snake.containsCoordinate(nPos,false))
-				{
-					snake.Kill();
-					snakeAnimator.Stop();
-					double x = level.LeftBound(),
-							y = level.UpperBound() + level.Height()/2 + 128;
-					OverLayController oController = (OverLayController) Parent.Child("OverlayController");
-					oController.showText("Game Over", x, y, 
-							512, 
-							Color.RED, 
-							fillMode.cleanText, 
-							level.Width() - 2*SettingsClass.LevelBorderWidth);
-					return;					
-				}
-				FoodObject food = (FoodObject) SemiInteractiveObject("Food");
-				if(nPos.Equals(food.Position()))
-				{
-					snake.eat(food);
-					lController.addPoints(food.getPoint());
-					generateFoodObject();
-					OverLayController oController = (OverLayController) Parent.Child("OverlayController");
-					oController.showText("Point",food.X() , food.Y(), 32, Color.WHITE,fillMode.cleanText, level.Width(), 1000);
-				}
+				checkForCollision(nPos);
 				snake.moveToCoordinates(nPos);
 			}
 		});
