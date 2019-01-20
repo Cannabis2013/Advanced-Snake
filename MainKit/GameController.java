@@ -33,7 +33,7 @@ public class GameController extends Object {
 	}
 	
 	
-	// Public section
+	// Public methods
 	
 	public void keyEvent(KeyCode key)
 	{	
@@ -117,13 +117,14 @@ public class GameController extends Object {
 		snake.setWidth(level.BlockSize());
 		snake.setPosition(level.translate(x, y));
 		snake.setObjectName("Snake");
-		snake.setColor(Color.GREEN);
 	}
 	
 	public void addSemiInteractiveObject(ViewObject obj)
 	{
 		semiInteractiveObjects.add(obj);
 	}
+	
+	// Private methods
 	
 	private direction DirectionFromKey(KeyCode key)
 	{

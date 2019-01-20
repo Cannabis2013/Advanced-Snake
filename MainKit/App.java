@@ -19,39 +19,14 @@ public class App extends Application {
 		 * Main thread
 		 */
 		
-		/*
-		 * Retrieves the list of arguments passed by command line
-		 */
-		List<String> parameters = getParameters().getRaw();
-		/*
-		 * Checks if any arguments is passed. Only pair of integers is accepted.
-		 * If no arguments passed, standard values will be chosen.
-		 * If arguments passed is not integers standard values will be chosen.
-		 */
-		int r = 30, c = 40;
-		if (parameters.size() == 2) {
-		
-			String rows = parameters.get(0);
-			String columns = parameters.get(1);
-			
-			if(Object.isPureDigit(rows) && Object.isPureDigit(columns))
-			{
-				r = Integer.parseInt(rows);
-				c = Integer.parseInt(columns);				
-			}
-			
-			
-		}
+		SettingsClass.parseArguments(getParameters().getRaw());
 		
 		/*
 		 * Checks if arguments interval is appropiate. Otherwise throw exception.
 		 */
 		
-		if(r < 5 || r > 100 || c < 5 || c > 100)
+		if(SettingsClass.rows < 5 || SettingsClass.rows > 100 || SettingsClass.columns < 5 || SettingsClass.columns > 100)
 			throw new IllegalArgumentException();
-		
-		SettingsClass.rows = r;
-		SettingsClass.columns = c;
 		
 		Introscreen startScreen = new Introscreen();
 		startScreen.Show();

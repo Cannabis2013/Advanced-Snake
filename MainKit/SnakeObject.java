@@ -19,6 +19,7 @@ public class SnakeObject extends ViewObject {
 		PollRate = pollRate;
 		setWidth(1);
 		grow = 0;
+		bodyColor = SettingsClass.SnakeColor;
 	}
 	
 	public boolean isDead()

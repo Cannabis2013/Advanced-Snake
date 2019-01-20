@@ -8,8 +8,8 @@ public class LevelObject extends View {
 	
 	public LevelObject(MainView parent) {
 		super(parent);
-		rows = 0;
-		columns = 0;
+		rows = SettingsClass.rows;
+		columns = SettingsClass.columns;
 		borderWidth = 20;
 		xPos = 0;
 		yPos = 0;
@@ -47,7 +47,7 @@ public class LevelObject extends View {
 	
 	public double translateY(double y)
 	{
-		return  yPos + verticalTopMargin + y*BlockSize() + SettingsClass.LevelBorderWidth;
+		return  yPos + SettingsClass.vMarginTop+ y*BlockSize() + SettingsClass.LevelBorderWidth;
 	}
 	
 	public PointD translate(double x, double y)
@@ -216,7 +216,7 @@ public class LevelObject extends View {
 	
 	private double gridHeight()
 	{
-		return Parent().Height() - 2*borderWidth - verticalTopMargin - verticalBottomMargin;
+		return Parent().Height() - 2*SettingsClass.LevelBorderWidth - SettingsClass.vMarginTop - SettingsClass.vMarginBottom;
 	}
 	
 	public void setverticalTopMargin(double vPad)
@@ -256,12 +256,14 @@ public class LevelObject extends View {
 				translateY(0) - SettingsClass.LevelBorderWidth, 
 				columns*BlockSize() + SettingsClass.LevelBorderWidth*2, 
 				gridHeight() + SettingsClass.LevelBorderWidth*2,30,30);
+		
 		painter.setFill(SettingsClass.LevelBackgroundColor);
 		painter.fillRect(translateX(0), translateY(0), columns*BlockSize(), gridHeight());
 		
 		if(m == DisplayMode.strongGitter)
 		{
 			painter.setFill(SettingsClass.gridColor);
+			painter.setLineWidth(5);;
 			for (int i = 0; i <= columns; i++)
 				painter.strokeLine(translateX(i), translateY(0), translateX(i), lastColumn()+BlockSize());
 			for (int i = 0; i <= rows; i++) {
@@ -278,7 +280,7 @@ public class LevelObject extends View {
 	}
 	
 	enum DisplayMode {strongGitter, weakGitter, noGitter};
-	private DisplayMode mode = DisplayMode.noGitter;
+	private DisplayMode mode = DisplayMode.strongGitter;
 	private double verticalTopMargin,verticalBottomMargin;
 	private int rows, columns;
 	private double xPos, yPos;

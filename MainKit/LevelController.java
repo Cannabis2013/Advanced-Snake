@@ -59,8 +59,6 @@ public class LevelController extends Object {
 	{
 		level.setRows(rows);
 		level.setColumns(columns);
-		level.setverticalTopMargin(vTopMargin);
-		level.setVerticalBottomMargin(vBottomMargin);
 		level.setX(x);
 		level.setY(y);
 		
