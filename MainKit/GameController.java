@@ -80,18 +80,58 @@ public class GameController extends Object {
 				blockRemainer -= dx;
 				PointD nPos = snake.position().copy();
 				
-				// Checks if new direction isn't opposite of the current and emsures Snake is changing direction according to the grid.
+				/*
+				 * First condition checks if the next position request is opposite of the current. If yes, returns false.
+				 * Second condition ensures that the shift in direction is safe which means that the Snake is well aligned with the grid.
+				 * The body correlates the position with regard to minor differencies as a consequence of rounding issues.
+				 */
 				
-				checkAndCorrelateDirection(nPos, dx, dy);
+				if((!isOpposite(snake.NextDirection(),snake.CurrentDirection()))
+						&& blockRemainer <= 0)
+				{					
+					snake.setCurrentDirection(snake.NextDirection());
+					blockRemainer = level.BlockSize();
+					updateCoordinates(nPos, snake.CurrentDirection(),dx,dy);
+					int c = level.relativeX(nPos.X()), r = level.relativeY(nPos.Y());
+					nPos = level.translate(c, r);
+				}
+				else
+					updateCoordinates(nPos, snake.CurrentDirection(),dx,dy);
 				
-				
-				// Checks if the new position is part of the border and therefor correlates the Snakes head position.
+				/*
+				 * Checks if the new position is part of the border and therefor correlates the Snakes head position.
+				 */
 				
 				CheckAndCorrelateBoundaries(nPos, snake);
 				
-				// Check for collusion between the Snake and itself, or the Snake and the food object.
+				/*
+				 * Check for collison
+				 * Checks if the new position is part of the snakes body
+				 */
 				
-				checkForCollision(nPos);
+				if(snake.containsCoordinate(nPos,false))
+				{
+					snake.Kill();
+					snakeAnimator.Stop();
+					double x = level.LeftBound(),
+							y = level.UpperBound() + level.Height()/2 + 128;
+					OverLayController oController = (OverLayController) Parent.Child("OverlayController");
+					oController.showText("Game Over", x, y, 
+							512, 
+							Color.RED, 
+							fillMode.cleanText, 
+							level.Width() - 2*SettingsClass.LevelBorderWidth);
+					return;					
+				}
+				FoodObject food = (FoodObject) SemiInteractiveObject("Food");
+				if(nPos.Equals(food.Position()))
+				{
+					snake.eat(food);
+					lController.addPoints(food.getPoint());
+					generateFoodObject();
+					OverLayController oController = (OverLayController) Parent.Child("OverlayController");
+					oController.showText("Point",food.X() , food.Y(), 32, Color.WHITE,fillMode.cleanText, level.Width(), 1000);
+				}
 				snake.moveToCoordinates(nPos);
 			}
 		});
