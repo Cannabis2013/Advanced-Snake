@@ -19,14 +19,9 @@ public class App extends Application {
 		 * Main thread
 		 */
 		
+		// if row and column arguments is invalid then standard values will be set.
+		
 		SettingsClass.parseArguments(getParameters().getRaw());
-		
-		/*
-		 * Checks if arguments interval is appropiate. Otherwise throw exception.
-		 */
-		
-		if(SettingsClass.rows < 5 || SettingsClass.rows > 100 || SettingsClass.columns < 5 || SettingsClass.columns > 100)
-			throw new IllegalArgumentException();
 		
 		Introscreen startScreen = new Introscreen();
 		startScreen.Show();

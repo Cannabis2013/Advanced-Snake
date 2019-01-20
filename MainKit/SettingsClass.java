@@ -5,6 +5,7 @@ import java.util.List;
 import com.sun.scenario.Settings;
 
 import BaseKit.PointD;
+import MainKit.LevelObject.DisplayMode;
 import javafx.scene.paint.Color;
 
 public final class SettingsClass {
@@ -43,6 +44,7 @@ public final class SettingsClass {
 	public static double vMarginTop = 50;
 	public static double vMarginBottom = 50;
 	public static double LevelBorderWidth = 20;
+	public static DisplayMode levelDisplayMode = DisplayMode.noGitter;
 	
 	/*
 	 * Snake properties
@@ -64,16 +66,22 @@ public final class SettingsClass {
 				SettingsClass.rows = Integer.parseInt(nextArg);
 			else if(arg.equals("--columns") && PointD.isPureDigit(nextArg))
 				SettingsClass.rows = Integer.parseInt(nextArg);
-			else if(arg.equals("--Snake-Color"))
+			else if(arg.equals("--background-color"))
+				SettingsClass.backgroundColor = SettingsClass.colorFromString(nextArg);
+			else if(arg.equals("--snake-Color"))
 				SettingsClass.SnakeColor = SettingsClass.colorFromString(nextArg);
-			else if(arg.equals("--Level-Color"))
+			else if(arg.equals("--level-Color"))
 				SettingsClass.LevelBackgroundColor = SettingsClass.colorFromString(nextArg);
-			else if(arg.equals("--Level-border"))
+			else if(arg.equals("--level-border"))
 				SettingsClass.LevelBorderColor = SettingsClass.colorFromString(nextArg);
-			else if(arg.equals("--ScoreBoard-border"))
+			else if(arg.equals("--scoreBoard-border"))
 				SettingsClass.ScoreBoardBorder = SettingsClass.colorFromString(nextArg);
-			else if(arg.equals("--Text-color"))
+			else if(arg.equals("--text-color"))
 				SettingsClass.textColor = SettingsClass.colorFromString(nextArg);	
+			else if(arg.equals("--no-gitter"))
+				SettingsClass.levelDisplayMode = DisplayMode.noGitter;
+			else if(arg.equals("--strong-gitter"))
+				SettingsClass.levelDisplayMode = DisplayMode.showGitter;
 		}
 	}
 	private static Color colorFromString(String str)

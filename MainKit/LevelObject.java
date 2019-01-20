@@ -260,10 +260,9 @@ public class LevelObject extends View {
 		painter.setFill(SettingsClass.LevelBackgroundColor);
 		painter.fillRect(translateX(0), translateY(0), columns*BlockSize(), gridHeight());
 		
-		if(m == DisplayMode.strongGitter)
+		if(m == DisplayMode.showGitter)
 		{
-			painter.setFill(SettingsClass.gridColor);
-			painter.setLineWidth(5);;
+			painter.setLineWidth(1);
 			for (int i = 0; i <= columns; i++)
 				painter.strokeLine(translateX(i), translateY(0), translateX(i), lastColumn()+BlockSize());
 			for (int i = 0; i <= rows; i++) {
@@ -279,7 +278,7 @@ public class LevelObject extends View {
 		}
 	}
 	
-	enum DisplayMode {strongGitter, weakGitter, noGitter};
+	enum DisplayMode {showGitter, noGitter};
 	private DisplayMode mode = DisplayMode.strongGitter;
 	private double verticalTopMargin,verticalBottomMargin;
 	private int rows, columns;
