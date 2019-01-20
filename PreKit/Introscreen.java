@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import BaseKit.View;
 import MainKit.MainView;
 import MainKit.OverLayController;
+import MainKit.SoundController;
 import MainKit.TextObject.fillMode;
 import Workers.PaintWorker;
 import Workers.Worker;
@@ -33,10 +34,12 @@ public class Introscreen extends View {
 			e.printStackTrace();
 		}
 		pWorker = new PaintWorker(this);
+		sController = new SoundController(this);
 		oController = new OverLayController(this);
 		
 		Worker.setGlobalPollRate(2);
 		showIntroText();
+		sController.playRepeatet("Music/Intro_music.mp3");
 	}
 	
 	@Override
@@ -45,6 +48,7 @@ public class Introscreen extends View {
 		{
 			new MainView();
 			pWorker.Stop();
+			sController.stopRepeatet();
 			Close();
 		}
 		else if(event.isControlDown() && event.getCode() == KeyCode.Q)
@@ -86,6 +90,7 @@ public class Introscreen extends View {
 				Height()/1.2, 
 				pSize, Color.WHITE,fillMode.boxedText, Width());
 	}
+	private SoundController sController;
 	private OverLayController oController;
 	private PaintWorker pWorker;
 	private int counter = 0, r, c;

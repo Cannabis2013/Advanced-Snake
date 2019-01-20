@@ -279,7 +279,7 @@ public class LevelObject extends View {
 	}
 	
 	enum DisplayMode {showGitter, noGitter};
-	private DisplayMode mode = DisplayMode.strongGitter;
+	private DisplayMode mode = DisplayMode.showGitter;
 	private double verticalTopMargin,verticalBottomMargin;
 	private int rows, columns;
 	private double xPos, yPos;

@@ -188,6 +188,6 @@ public class SnakeObject extends ViewObject {
 	private List<PointD> bodyCoordinates, relativeCoordinates;
 	private double speed, PollRate, grow;
 	private boolean dead = false;
-	private String eatSound = "SoundFx\\attack.wav", dieSound = "SoundFx\\death.wav";
+	private String eatSound = "SoundFx/attack.mp3", dieSound = "SoundFx/death.mp3";
 	private SoundController sController;
 }

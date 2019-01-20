@@ -13,7 +13,13 @@ public class SoundController extends Object {
 	public SoundController(View parent) {
 		super(parent);
 		setObjectName("SoundController");
-		Media music = new Media(new File("Music\\music.wav").toURI().toString());
+		backgroundPlayer = null;
+	}
+	
+	
+	public void playRepeatet(String path)
+	{
+		Media music = new Media(new File(path).toURI().toString());
 		volume = 0.5;
 		backgroundPlayer = new MediaPlayer(music);
 		backgroundPlayer.setVolume(volume);
@@ -23,14 +29,10 @@ public class SoundController extends Object {
 				backgroundPlayer.seek(Duration.ZERO);
 			}
 		});
-	}
-	
-	public void playMusic()
-	{
 		backgroundPlayer.play();
 	}
 	
-	public void stopMusic()
+	public void stopRepeatet()
 	{
 		backgroundPlayer.stop();
 	}
@@ -39,7 +41,7 @@ public class SoundController extends Object {
 	{
 		Media sound = new Media(new File(path).toURI().toString());
 		fxPlayer = new MediaPlayer(sound);
-		fxPlayer.setVolume(volume);
+		fxPlayer.setVolume(volume/2);
 		fxPlayer.play();
 	}
 	private MediaPlayer backgroundPlayer,fxPlayer;
